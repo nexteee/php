@@ -1,0 +1,57 @@
+<include file="public:header"/>
+<load href="__TMPL__public/css/uc_v1.css" />   
+<div class="middle">
+    <div class="uc clearfix account">
+    	<div class="login">
+            <p class="login_title">登录</p>
+            <p class="mt20 f14"><strong>1.使用这些帐号登录：</strong></p>
+            <div class="login_list clearfix">
+                <a href="{:u('uc/sina_login')}" class="sina" target="_blank"></a>
+                <a href="{:u('uc/qq_login')}" class="qq" target="_blank"></a>
+            </div>
+            <p class="mt20 f14"><strong>2.使用已注册的帐号登录：</strong></p>
+			<present name="err">
+            <div class="err" style="width:150px;">
+		        <div class="icon_{$err.err}">{$err.msg}</div>                
+            </div>
+            </present>             
+            <form id="myform" name="myform" action="" method="post" onsubmit="return check();">
+                <table class="mt10">
+                    <tr>
+                        <th>帐号 :</th>
+                        <td>
+                        	<input type="text" id="name" name="name" class="input_text" size="20" value="注册时使用的邮箱/会员帐号"  onMouseOver="this.focus()" onMouseOut="if(this.value=='')this.value='注册时使用的邮箱/会员帐号';" onFocus="this.select()" onClick="if(this.value=='注册时使用的邮箱/会员帐号')this.value=''"/>
+                        	<div class="hint error"></div>
+                        </td>                    
+                    </tr>
+                    <tr>
+                        <th>密码 :</th>
+                        <td><input type="password" value="" id="passwd" name="passwd" class="input_text" size="20"/>
+	                        <div class="hint error"></div>
+                        </td>                    
+                    </tr>  
+                    <tr>
+                        <th></th>
+                        <td><input type="submit" class="submit" value="确定" name="dosubmit"/></td>                    
+                    </tr>                
+                </table>            
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+function check(){ 
+	var name=$.trim($('#name').val());
+	var passwd=$.trim($('#passwd').val());
+	if(name.length<1){ 			
+		$('#name').next('.hint').html('请填写昵称');
+		return false;
+	}	
+	if(passwd.length<1){ 			
+		$('#passwd').next('.hint').html('请填写密码');
+		return false;
+	}	
+	return true;
+}
+</script>
+<include file="public:footer"/> 

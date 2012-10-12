@@ -1,0 +1,289 @@
+@charset "utf-8";
+.err{ 
+	padding:5px;
+	margin:10px 0px;
+	height:25px;
+	background:#F5FEC7;	
+}
+.err .icon_1{ 
+	background:url(../images/msg_bg.png) 0px -250px no-repeat;
+	padding-left:18px;
+	margin-top:5px;
+	height:16px;
+	line-height:16px;
+}
+.err .icon_0{ 
+	background:url(../images/msg_bg.png) 0px 0px no-repeat;
+	padding-left:18px;
+	margin-top:5px;	
+	height:16px;
+	line-height:16px;	
+}
+.required{ 
+	color:#F00;
+}
+.uc {
+	background:#fff;
+	border-radius: 4px;
+	margin-top:20px;
+	padding:20px 20px;
+	box-shadow: 0 0 3px rgba(34, 25, 25, 0.2);
+}
+.uc .left_region {
+	border-right:1px dotted #ccc;
+	float:left;
+	padding-right:15px;
+}
+.uc .left_region h3 {
+	font-size:16px;
+}
+.uc .left_region ul {
+	margin-left:10px;
+	margin-top:10px;
+}
+.uc .left_region ul li {
+	margin-bottom:15px;
+}
+.uc .left_region ul a {
+	color: #666;
+	font-size: 14px;
+}
+.uc .left_region ul .on a{ 
+	color:#ff4444;
+	font-weight:bold;
+}
+.uc .right_region {
+	padding-left:50px;
+	float:left;
+	width:740px;
+}
+.page{ 
+	text-align:right;
+	display:block;
+}
+.page span,.page a{ 
+	display:inline;
+}
+/*---------------------------------------------------------------------------------*/
+.like_list{ 
+	
+}
+.like_list a{ 
+	text-decoration:none;
+}
+.like_list .item{ 
+	width: 150px;
+	padding: 10px 9px;
+	border: solid 1px #F0F0F0;
+	margin-bottom: 22px;
+	height: auto !important;
+	background: white;
+	box-shadow:none;
+	position:relative;
+}
+.like_list .item a{ 
+	font-size:12px;
+	line-height:16px;
+}
+.like_list .item img{ 
+	width:150px;
+}
+.like_list .item .del{ 
+	width:21px;
+	height:21px;
+	position:absolute;
+	background:url(../images/ui-delete.png) no-repeat;
+	right:5px;
+	top:5px;
+	display:none;
+	cursor:pointer;
+}
+.like_list .summary{ 
+	padding: 8px 0 5px;
+	margin: 0;
+	line-height: 20px;
+	font-weight: normal;
+	word-wrap: break-word;
+}
+
+/*---------------------------------------------------------------------------------*/
+#sns_list{ 
+	width:700px;
+}
+#sns_list .sns_icon {
+	float: left;
+	width: 50px;
+	height: 50px;
+	overflow: hidden;
+	background-image: url(../images/sns.png);
+}
+#sns_list .sns_icon.sina {
+	background-position: 0 -50px;
+}
+#sns_list .sns_icon.qq {
+	background-position: 0 -400px;
+}
+#sns_list .sns_icon.taobao {
+	background-position: 0 -100px;
+}
+#sns_list li {
+	float: left;
+	width: 300px;
+	height: 50px;
+	padding: 15px 0;
+	overflow: hidden;
+}
+#sns_list .sns_name{ 
+	color: #333;
+	font-size: 12px;
+	font-weight: bold;
+}
+#sns_list .text{ 
+	float:right;
+	width:240px;
+}
+#sns_list .hint{ 
+	margin-top:10px;
+	color:#666;
+}
+#sns_list .hint a{ 
+	color:#5AD;
+}
+
+.account{ 
+	font-size:14px;
+}
+.account th{ 
+	text-align:right;
+	font-weight:normal;
+	height:32px;
+	line-height:32px;
+	padding-bottom:15px;
+}
+.account td{ 
+	padding-left:10px;
+	padding-bottom:15px;	
+}
+.account .input_text,.account textarea{ 
+	width: 220px;
+	height: 22px;
+	padding: 4px;
+	border: 1px solid #DDD;
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	vertical-align: middle;
+	color: #333;
+	font-size: 14px;
+	outline: none;
+}
+
+.account .err{ 
+	margin-left:130px;
+}
+.account p{ 
+	line-height:35px;
+	font-size:12px;
+}
+.account .share a{ 
+	display:block;
+	float:left;
+	height:16px;
+	padding-left:18px;
+	background-image:url(../images/shareicon.png);
+	background-repeat:no-repeat;
+	margin-right:10px;
+	color:#333;
+	font-size:12px;
+	white-space:nowrap;
+}
+.account .share .renren{ 
+	background-position:0px -48px;
+}
+.account .share .kaixin{ 
+	background-position:0px -64px;
+}
+.account .share .sina{ 
+	background-position:0px -80px;
+}
+.account .share .sohu{ 
+	background-position:0px -94px;
+}
+.account .share .qzone{ 
+	background-position:0px -112px;
+}
+.account .share .tqq{ 
+	background-position:0px -127px;
+}
+/*login*/
+.login{ 
+	width:450px;
+	margin:0px auto;
+	font: 12px Arial,Helvetica,sans-serif;	
+}
+.login_title{ 
+	font-size:16px !important;
+	font-weight:bold;
+	border-bottom: 1px dotted #D1D1D1;
+	padding:0px 0px 10px 0px;
+}
+.login p{ 
+	line-height:25px;
+}
+.login .login_list a{ 
+	float:left;
+	width:120px;
+	height:24px;
+	margin-right:10px;
+}
+.login .login_list .taobao{ 
+	background:url(../images/l-tao.png) no-repeat;
+}
+.login .login_list .sina{ 
+	background:url(../images/l-sina.png) no-repeat;
+}
+.login .login_list .qq{ 
+	background:url(../images/l-qq.png) no-repeat;
+}
+.uc .register{ 
+	margin:10px 50px;
+}
+.uc .register h2{ 
+	font-size:24px;
+}
+.uc .register .hint{ 
+	font-size:12px;
+	line-height:26px;
+	color:#999999;
+}
+.uc .register .th{ 
+	color:#000;
+}
+.uc .register #reg_left{ 
+	float:left;
+	width:600px;
+	border-right: 1px solid #E5E5E5;
+}
+.uc .register #reg_right{ 
+	float:right;
+	width:200px;
+	font-size:12px;
+	color:#999;
+}
+.uc .register .reg_btn{ 
+	width:154px;
+	height:40px;
+	border:0px;
+	background:url(../images/ui_register.png) no-repeat;
+	cursor:pointer;
+}
+.uc .register .login_btn{ 
+	width:84px;
+	height:30px;
+	background:url(../images/ui_login.png) no-repeat;
+	display:block;
+	margin:20px 0px 100px 0px;
+}
+.verify_img{ 
+	cursor:pointer;
+}

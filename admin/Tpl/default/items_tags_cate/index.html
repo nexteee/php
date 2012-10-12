@@ -1,0 +1,72 @@
+<include file="public:header" />
+<div class="pad-lr-10">
+  	<form name="searchform" action="" method="get" >
+    <table width="100%" cellspacing="0" class="search-form">
+        <tbody>
+            <tr>
+            <td>
+            <div class="explain-col">
+            	关键字 :
+                <input type="hidden" name="m" value="items_tags_cate" />
+                <input name="keyword" type="text" class="input-text" size="25" value="{$keyword}" />
+                <input type="hidden" name="cate_id" value="{$cate_id}" />
+                <input type="submit" name="search" class="button" value="搜索" />
+        	</div>
+            </td>
+            </tr>
+        </tbody>
+    </table>
+    </form>
+	
+   <h1 class="title-2">当前分类：{$pcate_info.name} &gt; {$cate_info.name}</h1>
+  <form id="myform" name="myform" action="{:u('items_tags_cate/del')}" method="post" onsubmit="return check();">
+    <div class="table-list">
+      <table width="100%" cellspacing="0">
+        <thead>
+          <tr>
+          	<th width=30>序号</th>
+            <th width=30><input type="checkbox" value="" id="check_box" onclick="selectall('id[]');"></th>
+            <th width="150">分类名称</th>
+            <th width="60">ID值</th>
+            <th>标签名称</th>
+            <th width="60">操作</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <volist name="tags_list" id="val" >
+          <tr>
+            <td align="center">{$val.key}</td>
+            <td align="center"><input type="checkbox" value="{$val.id}" name="id[]"></td>
+            <td align="center"><b>{$cate_info.name}</b></td>
+            <td align="center">{$val.id}</td>
+            <td align="center">{$val.name}</td>
+            <td align="center"><a href="{:u('items_tags_cate/del',array('cate_id'=>$cate_id,'id'=>$val['id']))}" onclick="return confirm('你确定要删除选择项吗？')"><em class="blue">{$Think.lang.delete}</em></a></td>
+          </tr>
+          </volist>
+        </tbody>
+      </table>
+	  <div class="btn">
+      	<input type="hidden" name="cate_id" value="{$cate_id}" />
+		<label for="check_box" style="float:left;">{$Think.lang.select_all}/{$Think.lang.cancel}</label>
+		<input type="submit" class="button" name="dosubmit" value="{$Think.lang.delete}" onclick="return check()" style="float:left;margin:0 10px 0 10px;"/>		
+		<div id="pages">{$page}</div>
+	  </div>
+	</div>
+</form>
+</div>
+<script type="text/javascript">
+function check(){
+	var ids='';
+	$("input[name='id[]']:checked").each(function(i, n){
+		ids += $(n).val() + ',';
+	});
+
+	if(ids=='') {
+		window.top.art.dialog({content:'请选择需要删除的标签',lock:true,width:'200',height:'50',time:1.5},function(){});
+		return false;
+	}
+}
+</script>
+</body>
+</html>

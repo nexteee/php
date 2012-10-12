@@ -1,0 +1,93 @@
+<include file="public:header" />
+<link rel="stylesheet" type="text/css" href="__ROOT__/statics/js/calendar/calendar-blue.css"/>
+<script type="text/javascript" src="__ROOT__/statics/js/calendar/calendar.js"></script>
+<div class="pad-10" >
+    <form name="searchform" action="" method="get" >
+    <table width="100%" cellspacing="0" class="search-form">
+        <tbody>
+            <tr>
+            <td>
+            <div class="explain-col">
+            	发布时间：
+            	<input type="text" name="time_start" id="time_start" class="date" size="12" value="{$time_start}">
+				<script language="javascript" type="text/javascript">
+                    Calendar.setup({
+                        inputField     :    "time_start",
+                        ifFormat       :    "%Y-%m-%d",
+                        showsTime      :    'true',
+                        timeFormat     :    "24"
+                    });
+                </script>
+                -
+                <input type="text" name="time_end" id="time_end" class="date" size="12" value="{$time_end}">
+				<script language="javascript" type="text/javascript">
+                    Calendar.setup({
+                        inputField     :    "time_end",
+                        ifFormat       :    "%Y-%m-%d",
+                        showsTime      :    'true',
+                        timeFormat     :    "24"
+                    });
+                </script>
+                <select name="status">
+            	<option value="-1">-是否审核-</option>
+                <option value="1" <if condition="$status eq 1">selected="selected"</if>>已审核</option>
+                <option value="0" <if condition="$status eq 0">selected="selected"</if>>未审核</option>
+                </select>
+                &nbsp;关键字 :
+                <input name="keyword" type="text" class="input-text" size="25" value="{$keyword}" />
+                <input type="hidden" name="m" value="items" />
+				<input type="hidden" name="a" value="comments" />
+                <input type="submit" name="search" class="button" value="搜索" />
+        	</div>
+            </td>
+            </tr>
+        </tbody>
+    </table>
+    </form>
+
+    <form id="myform" name="myform" action="{:u('items/comments_delete')}" method="post" onsubmit="return check();">
+    <div class="table-list">
+    <table width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th width=40>{$Think.lang.orders}</th>
+                <th width=15><input type="checkbox" value="" id="check_box" onclick="selectall('id[]');"></th>
+                <th width="40">ID</th>
+                <th width="40">&nbsp;</th>
+                <th>商品评论</th>
+                <th width=120>发布时间</th>
+                <th width=30>审核</th>
+            </tr>
+        </thead>
+    	<tbody>
+        <volist name="list" id="val" >
+        <tr>
+        	<td align="center">{$val.key}</td>
+            <td align="center"><input type="checkbox" value="{$val.id}" name="id[]"></td>
+            <td align="center"><a class="blue" href="./?a=index&m=item&id={$val['pid']}#comments" target=_blank>{$val.id}</a></td>
+            <td align="right"><a class="blue" href="./?a=index&m=item&id={$val['pid']}#comments" target=_blank><img src="{$val.items_img}" width="35" width="35" class="preview" bimg="{$val.items_img}"></a></td>
+            <td align="left">
+				<a href="./?a=index&m=item&id={$val['pid']}#comments" target=_blank>{$val.title}</a><br><font color=red>{$val.info}</font></td>
+            <td align="center"><em style="color:green;">{:date("Y-n-j   H:i:s",$val["add_time"])}</em></td>
+            <td align="center" onclick="status({$val.id},'comments_status')" id="comments_status_{$val.id}"><img src="__ROOT__/statics/images/status_{$val.status}.gif" /></td>            
+        </volist>
+    	</tbody>
+    </table>
+    <div class="btn">
+    	<label for="check_box" style="float:left;">全选/取消</label>
+    	<input type="submit" class="button" name="dosubmit" value="{$Think.lang.delete}" onclick="return confirm('{$Think.lang.sure_delete}')" style="float:left;margin:0 10px 0 10px;"/>
+    	<div id="pages">{$page}</div>
+    </div>
+    </div>
+    </form>
+</div>
+<script language="javascript">
+function status(id,type){
+    $.get("{:u('items/comments_status')}", { id: id, type: type }, function(jsondata){
+		var return_data  = eval("("+jsondata+")");
+		$("#"+type+"_"+id+" img").attr('src', '__ROOT__/statics/images/status_'+return_data.data+'.gif')
+	}); 
+}
+</script>
+</body>
+</html>

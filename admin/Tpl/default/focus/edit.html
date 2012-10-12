@@ -1,0 +1,65 @@
+<include file="public:header" />
+
+<form action="{:u('focus/update')}" method="post" name="myform" id="myform" enctype="multipart/form-data" style="margin-top:10px;">
+  <div class="pad-10">
+  <div class="col-tab">
+  <div id="div_setting_1" class="contentList pad-10">
+    <table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+      <tr>
+        <th>所属分类 :</th>
+        <td><select name="cate_id">
+        	<volist name="cate_list['parent']" id="val">
+              <option  <if condition="$article['cate_id'] eq $val['id']"> selected="selected" </if> value="{$val.id}">{$val.name}</option>
+            </volist>
+          </select></td>
+      </tr>
+	  <tr>
+        <th width="100">焦点标题 :</th>
+        <td><input type="text" name="title" id="title" class="input-text" size="70" value="{$focus.title}"></td>
+      </tr>
+      <tr>
+          <th>链接地址 :</th>
+          <td><input type="text" name="url" id="url" class="input-text" value="{$focus.url}" size="70"></td>
+      </tr>
+      <tr>
+      	<th>焦点图片 :</th>
+      	<td>
+        	<input type="file" name="img" id="img" class="input-text" size=21 />
+            <if condition="$focus['img'] neq ''">
+            <br /><img src="__ROOT__/data/focus/{$focus.img}" />
+            </if>
+        </td>
+      </tr>
+      
+      <tr>
+        <th>排序值 :</th>
+        <td><input type="text" name="ordid" id="ordid" class="input-text" size="8" value="{$focus.ordid}" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"></td>
+      </tr>
+	  <tr>
+        <th>资讯摘要 :</th>
+        <td><textarea name="abst" id="abst" style="width:58%;height:50px;">{$focus.abst}</textarea></td>
+      </tr>      
+      <tr>
+		<td><input type="hidden" name="id" value="{$focus.id}" id="article_id"/></td>
+	  </tr>
+      <tr>
+        <th>审核状态 :</th>
+        <td><input type="radio" name="status" class="radio_style" value="1" <if condition="$focus.status eq 1"> checked</if>>
+          &nbsp;已审核&nbsp;&nbsp;&nbsp;
+          <input type="radio" name="status" class="radio_style" value="0" <if condition="$focus.status eq 0">  checked</if>>
+          &nbsp;未审核&nbsp;&nbsp;&nbsp;          
+          </td>
+      </tr>      
+    </table>
+  </div>
+  
+  <div class="bk15"></div>
+  <div class="btn">
+    <input type="submit" value="{$Think.lang.submit}" name="dosubmit" class="button" id="dosubmit">
+  </div>
+
+</div>
+</div>
+</form>
+</body>
+</html>

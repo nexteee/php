@@ -1,0 +1,85 @@
+<include file="public:header" />
+<link rel="stylesheet" type="text/css" href="__ROOT__/statics/js/calendar/calendar-blue.css"/>
+<script type="text/javascript" src="__ROOT__/statics/js/calendar/calendar.js"></script>
+<style type="text/css">
+td,th{ 
+	height:30px;
+}
+</style>
+<form action="{:u('items/delete_search')}" method="post" name="myform" id="myform">
+    <div class="pad-10">
+        <div class="col-tab">
+            <div id="div_setting_1" class="contentList pad-10">
+                <table width="100%" cellspacing="0" class="search-form">
+	                <tr>
+	                    <th width=120 align=right>发布时间：</th>
+	            	    <td>
+	                    <input type="text" name="time_start" id="time_start" class="date" size="12" value="{$time_start}">
+						<script language="javascript" type="text/javascript">
+	                        Calendar.setup({
+	                            inputField     :    "time_start",
+	                            ifFormat       :    "%Y-%m-%d",
+	                            showsTime      :    'true',
+	                            timeFormat     :    "24"
+	                        });
+	                    </script>
+	                    -
+	                    <input type="text" name="time_end" id="time_end" class="date" size="12" value="{$time_end}">
+	                    <script language="javascript" type="text/javascript">
+	                        Calendar.setup({
+	                            inputField     :    "time_end",
+	                            ifFormat       :    "%Y-%m-%d",
+	                            showsTime      :    'true',
+	                            timeFormat     :    "24"
+	                        });
+	                    </script>  
+	                    </td>
+	                </tr>
+	                <tr>
+	                   <th align=right>商品分类：</th>
+	                   <td>
+	                    <select name="cate_id" style="width:250px;">
+	                    <option value="">--所有分类--</option>
+	                    <volist name="cate_list" id="val">
+	                    <option value="{$val.id}" level="{$val.level}" <if condition="$cate_id eq $val['id']"> selected="selected" </if>>
+	                        {:str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',$val['level'])}
+	                        {:trim($val['name'])}
+	                    </option>
+	                    </volist>                
+	                    </select>
+	                   </td>
+	                </tr>      
+	                <tr>
+	                   <th align=right>审核状态：</th>
+	                   <td>
+	                    <select name="status" style="width:250px;">
+	                    <option value="" selected>-所有状态-</option>
+	                    <option value="1">已审核</option>
+	                    <option value="0">未审核</option>
+	                    </select>
+	                   </td>
+	                </tr> 
+	                <tr>
+	                   <th align=right>价格范围：</th>
+	                   <td><input type="text" name="min_price" size="5" value="{$min_price}" />&nbsp;-&nbsp;<input type="text" name="max_price" size="5" value="{$max_price}" />
+	                   </td>
+	                </tr>
+	                <tr>
+	                   <th align=right>关 键 字：</th>
+	                   <td>
+	                      <input name="keyword" type="text" class="input-text" size="25" value="{$keyword}" />
+	                   </td>
+	                </tr>
+	                <tr>
+	                   <th align=right>确认删除：</th>
+	                   <td><input name="isok" type="checkbox" class="input-text" value="1" />&nbsp;&nbsp;<font color=red>(注：确认是否要删除，删除的数据不可恢复！)</font></td>
+	                </tr>   
+                </table>
+            </div>
+            <div class="btn">
+                <input type="submit" name="dosubmit" value="删除" class="button" id="dosubmit"　/>
+            </div>
+        </div>
+    </div>
+</form>
+</body></html>

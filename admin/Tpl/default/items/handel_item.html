@@ -1,0 +1,180 @@
+<include file="public:header" />
+<script type="text/javascript" src="__ROOT__/includes/kindeditor/kindeditor-min.js"></script>
+<script type="text/javascript">
+	//编辑器
+	KE.show({
+		id : 'info',
+		imageUploadJson : '__ROOT__/includes/kindeditor/php/upload_json.php',
+		fileManagerJson : '__ROOT__/includes/kindeditor/php/file_manager_json.php',
+		allowFileManager : true,
+		afterCreate : function(id) {
+			KE.event.ctrl(document, 13, function() {
+				KE.util.setData(id);
+				document.forms['myform'].submit();
+			});
+			KE.event.ctrl(KE.g[id].iframeDoc, 13, function() {
+				KE.util.setData(id);
+				document.forms['myform'].submit();
+			});
+		}
+	});
+	$(function(){
+		$("#add_pic").click(function(){
+			$("#pic_tr").clone().prependTo($("#pic_tr").parent());
+		});
+		
+		$(".delete_pic").click(function(){
+			var item_id = $("#items_id").val();
+			var id = $(this).attr('id');
+			$.get("admin.php?m=items&a=delete_pic&item_id="+item_id+"&id="+id, function(data){
+				$("#list_"+id).hide();
+			});
+		});
+		
+	})
+</script>
+
+<form action="{:u('items/handel_item')}" method="post" name="myform" id="myform" enctype="multipart/form-data" style="margin-top:10px;">
+  <div class="pad-10">
+    <div class="col-tab">
+       <ul class="tabBut cu-li">
+			<li id="tab_setting_1" class="on" onclick="SwapTab('setting','on','',3,1);">基本信息</li>
+			<li id="tab_setting_2" onclick="SwapTab('setting','on','',3,2);">商品详情</li>
+			<li id="tab_setting_3" onclick="SwapTab('setting','on','',3,3);">SEO设置</li>
+      </ul>
+      <div id="div_setting_1" class="contentList pad-10">
+        <table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+          
+          <tbody id="item_body">
+          <tr>
+            <th width="100">商品名称 :</th>
+            <td><input type="text" name="title" id="title" class="input-text" size="60"></td>
+          </tr>
+          <tr>
+			<th>所属分类 :</th>
+			<td>
+                <select onchange="get_child_cates(this,'scid');" name="pcid" id="pcid">
+	                <option value="">--请选择--</option>
+	                <volist name="first_cates_list" id="val">
+	                <option value="{$val.id}">{$val.name}</option>
+	                </volist>
+                </select>
+                &nbsp;-&nbsp;
+                <select onchange="get_child_cates(this,'cid');"  name="scid" id="scid">
+                	<option value="">--请选择--</option>
+                </select>
+                &nbsp;-&nbsp;
+                <select  name="cid" id="cid">
+                	<option value="">--请选择--</option>
+                </select>
+            </td>
+		  </tr>
+          <tr>
+          	<th>商品图片 :</th>
+            <td>
+            	<input type="file" name="img" id="img" class="input-text" size=21 />
+            </td>
+          </tr>
+          <tr>
+          	<th>链接地址 :</th>
+            <td><input type="text" name="url" id="url" class="input-text" size="60"></td>
+          </tr>
+          <tr>
+          	<th>标签 :</th>
+            <td><input type="text" name="tags" id="tags" class="input-text" size="60">&nbsp;&nbsp;<input class="button" type="button" value="自动获取" onclick="get_tags()"/></td>
+          </tr>
+          <tr>
+          	<th>价格 :</th>
+            <td><input type="text" name="price" id="price" class="input-text" size="20" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')">元</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+	  <div id="div_setting_2" class="contentList pad-10 hidden">
+        <table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+          
+          <tr id="pic_tr">
+            <th width="100">上传附件 :</th>
+            <td>
+            	<input type="file" name="pic[]" class="input-text" size=21 />
+            </td>
+          </tr>
+          <tr>
+			<th></th>
+			<td><input type="button" value="增加图片" id="add_pic" class="button"></td>
+		  </tr>
+          <tr>
+            <th>已上传图片 :</th>
+            <td>
+				<volist name="pic_list" id="val" >
+				<div id="list_{$val.id}">
+				<img src=".{$val.url}" />&nbsp;&nbsp;<a href="javascript:;" class="delete_pic" style="color:#00F" id="{$val.id}">删除</a>
+				<br/>
+				</div>
+				</volist>
+            </td>
+      	  </tr>         
+          <tr>
+            <th>详细内容 :</th>
+            <td><textarea name="info" id="info" style="width:80%;height:250px;visibility:hidden;">{$items.info}</textarea></td>
+          </tr>
+        </table>
+  	  </div>  
+      <div id="div_setting_3" class="contentList pad-10 hidden">
+        <table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+          <tr>
+            <th width="100">{$Think.lang.seo_title} :</th>
+            <td><input type="text" name="seo_title" id="seo_title" class="input-text" size="60"></td>
+          </tr>
+          <tr>
+            <th>{$Think.lang.seo_keys} :</th>
+            <td><input type="text" name="seo_keys" id="seo_keys" class="input-text" size="60"></td>
+          </tr>
+          <tr>
+            <th>{$Think.lang.seo_desc} :</th>
+            <td><textarea name="seo_desc" id="seo_desc" cols="80" rows="8"></textarea></td>
+          </tr>
+        </table>
+      </div>
+      <div class="bk15">
+      </div>
+      <div class="btn"><input type="submit" value="{$Think.lang.submit}" name="dosubmit" class="button" id="dosubmit"></div>
+    </div>
+  </div>
+</form>
+<script type="text/javascript">
+function SwapTab(name,cls_show,cls_hide,cnt,cur){
+    for(i=1;i<=cnt;i++){
+		if(i==cur){
+			 $('#div_'+name+'_'+i).show();
+			 $('#tab_'+name+'_'+i).attr('class',cls_show);
+		}else{
+			 $('#div_'+name+'_'+i).hide();
+			 $('#tab_'+name+'_'+i).attr('class',cls_hide);
+		}
+	}
+}
+
+function get_tags()
+{
+    var title = $("#title").val();
+	var url = "{:u('items/get_tags')}";
+	$.get(url,{ title: title },function(data){
+	    var return_data  = eval("("+data+")");
+		$("#tags").val(return_data.data);								
+	});
+}
+
+function get_child_cates(obj,to_id)
+{
+	var parent_id = $(obj).val();
+	if(to_id == 'scid') {
+		$('#cid').html( '<option value=\"\">--请选择--</option>');
+	}
+	$.get('?m=items&a=get_child_cates&parent_id='+parent_id,function(data){
+		var obj = eval("("+data+")");
+		$('#'+to_id).html( obj.content );
+	});
+}
+</script>
+</body></html>

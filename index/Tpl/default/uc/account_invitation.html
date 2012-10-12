@@ -1,0 +1,44 @@
+<include file="public:header"/>
+<load href="__TMPL__public/css/account.css" />
+<load href="__ROOT__/statics/js/dateselect.js" />
+<load href="__ROOT__/statics/js/area.js" />
+<load href="__ROOT__/statics/js/zeroclipboard.js" />
+
+<div class="middle">
+    <div class="uc_account clearfix"> 
+    	<include file="account_left"/>
+        <div class="right_region account">
+			<p>方式一、这是您的专用邀请链接，请通过QQ或MSN发送给好友：</p>	
+            <textarea style="width:600px;height:60px; margin:10px 0;" id="uc_url">女人天生爱逛街，和我们一起来逛吧！~{$site_domain}</textarea>
+           	<p>
+				<input type="button" class="submit" id="copy_url" value="复制" name="dosubmit"/>             
+            </p>
+            <p class="clearfix">方式二、通过SNS网站分享邀请好友：</p>
+            <div class="share">
+<a class="renren" href="javascript:window.open('http://share.renren.com/share/buttonshare.do?link='+encodeURIComponent('{$share.uc_url}')+'&title='+encodeURIComponent('{$share.info}'));void(0)">人人网</a>
+                                <a class="kaixin" href="javascript:window.open('http://www.kaixin001.com/repaste/share.php?rtitle='+encodeURIComponent('{$share.info}')+'&rurl='+encodeURIComponent('{$share.uc_url}'));void(0)">开心网</a>
+                                <a class="sina" href="javascript:window.open('http://service.t.sina.com.cn/share/share.php?title='+encodeURIComponent('{$share.info}'));void(0)">新浪微博</a>
+                                <a class="sohu" href="javascript:window.open('http://t.sohu.com/third/post.jsp?title='+encodeURIComponent('{$share.info}')+'&url='+encodeURIComponent('{$share.uc_url}')+'&content=utf-8');void(0)">搜狐微博</a>
+                                <a class="qzone" href="javascript:window.open('http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?title='+encodeURIComponent('{$share.info}')+'&url='+encodeURIComponent('{$share.uc_url}')+'&content=utf-8');void(0)">QQ空间</a>
+                                <a class="tqq" href="javascript:window.open('http://share.v.t.qq.com/index.php?c=share&a=index&url='+encodeURIComponent('{$share.uc_url}')+'&content='+encodeURIComponent('{$share.info}')+'');void(0)">腾讯微博</a>             
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+$(function(){ 
+	var clip = new ZeroClipboard.Client();
+	clip.setHandCursor( true );
+	clip.addEventListener('mouseOver', function (client) {
+		clip.setText($('#uc_url').val());
+	});
+	clip.glue('copy_url');
+	document.getElementById("copy_url").onmouseover = function(){
+		clip.reposition(this);
+	}
+	
+});
+
+</script>
+<include file="public:footer"/> 

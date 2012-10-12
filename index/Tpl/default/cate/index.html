@@ -1,0 +1,47 @@
+<include file="public:header"/>
+<div class="content clearfix">
+    <div class="item_head mt15">
+        <h2 class="red">
+			<present name="pcate_info">
+				{$pcate_info.name}			
+			<else />
+				热门
+			</present>			
+			<present name="cate_info">
+				<span class="tag_title gray">&nbsp;&nbsp;{$cate_info.name}</span>
+			</present>
+		</h2>
+		<include file="public:baidu_share"/>
+    </div>
+    <div class="item_list infinite_scroll" style="min-height:600px;">
+{/*-----------------------------------------------------------------------------*/}    
+        <div class="box_shadow masonry_brick mt15" style="position: absolute; top: 0px; left: 0px;">
+            <div class="catalog clearfix">
+			<volist name="cate_list" id="val">
+            	<div class="catalog_item">
+                    <h3><a href="{:u('cate/index',array('cid'=>$val['id']))}" <if condition="$request.cid eq $val['id']">class="on"</if>>{$val.name}</a></h3>
+                    <div class="clearfix">
+                        <volist name="val['items']" id="sval">
+                            <a href="{:u('cate/index',array('cid'=>$sval['id']))}" style="color:{$sval.color};" <if condition="$request.cid eq $sval['id']">class="on"</if>>{$sval['name']}</a>
+                        </volist>
+                    </div>
+                </div>            	
+            </volist>
+            </div>
+        </div>
+{/*-----------------------------------------------------------------------------*/}            
+        <include file="public:goods_list"/>
+    </div>
+    <if condition="$show_sp eq 1">
+        <div id="more" class="center">
+            <a href="{:u('cate/index',array('sp'=>2,'cid'=>$cid,'p'=>$p))}" hidefocus="true"></a>
+        </div>    	
+   	</if> 
+    <if condition="$page neq ''">
+    	<div id="page" class="page mt20 clearfix" style="display: none;">
+        	<span class="page_num">{$page}</span>
+        </div>
+     </if>     
+</div>
+
+<include file="public:footer"/>

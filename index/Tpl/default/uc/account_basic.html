@@ -1,0 +1,85 @@
+<include file="public:header"/>
+<script language="javascript" type="text/javascript" src="__ROOT__/statics/js/jquery/plugins/formvalidator.js"></script>
+<script language="javascript" type="text/javascript" src="__ROOT__/statics/js/jquery/plugins/formvalidatorregex.js"></script>
+<link href="__ROOT__/statics/css/formvalidator.css" rel="stylesheet" type="text/css" />
+<load href="__TMPL__public/css/account.css" />
+<load href="__ROOT__/statics/js/PCASClass.js" />
+<div class="middle">
+    <div class="uc_account clearfix"> 
+		<include file="account_left"/>
+        <div class="right_region account">
+			<present name="err">
+            <div class="err"  style="width:150px;">
+		        <div class="icon_{$err.err}">{$err.msg}</div>                
+            </div>
+            </present> 
+            <form action="" method="post" name="myform" id="myform" enctype="multipart/form-data">
+                <table>
+                    <tr>
+                        <th style="width:80px;" align="rihgt"><span class="required">*&nbsp;</span>会员帐号：</th>
+                        <td><input type="text" name="name" id="name" value="{$user.name}" class="input_text"/></td>
+                    </tr>
+                    <tr>
+                        <th><span class="required">*&nbsp;</span>电子邮箱：</th>
+                        <td><input type="text" name="email" id="email" value="{$user.email}" class="input_text"/></td>
+                    </tr>
+                    <tr>
+                        <th>会员头像：</th>
+                        <td>
+                            <if condition="trim($user['img']) neq ''">
+                                <img src="{$user.img}" width="120" height="120"/><br>
+                            <else/>
+                                <img src="__TMPL__/public/images/avatar-60.png" width="40" height="40"/><br>
+                            </if>                        	
+                        	<input type="file"  name="img" id="img"/>    
+                       	</td>
+                    </tr>
+                    <tr>
+                        <th>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</th>
+                        <td><input type="radio" name="sex" value="1"  <if condition="$user.sex eq 1"> checked</if> />
+                            男
+                            <input type="radio" name="sex" value="0"  <if condition="$user.sex eq 0"> checked</if> />
+                            女
+                            <input type="radio" name="sex" value="2"  <if condition="$user.sex eq 2"> checked</if> />
+                            保密 </td>
+                    </tr>
+                    <tr>
+                        <th>出生年月：</th>
+                        <td><input type="text" name="brithday" value="{$user.brithday}" class="input_text"/></td>
+                    </tr>
+                    <tr>
+                        <th>所在城市：</th>
+                        <td><select name="province" id="province"></select>&nbsp;&nbsp;
+								<select name="city" id="city"></select>&nbsp;&nbsp;
+								<select name="area" id="area"></select>&nbsp;&nbsp;
+								<script language="javascript" defer>
+									new PCAS("province","city","area","{$user.province}","{$user.city}","{$user.area}");
+								</script> </td>
+                    </tr>
+                    <tr>
+                        <th>个人主页：</th>
+                        <td><input type="text" name="blog" value="{$user.blog}" class="input_text"/></td>
+                    </tr>
+                    <tr>
+                        <th>签名简介：</th>
+                        <td><textarea style="width:300px;height:100px;" name="info">{$user.info}</textarea></td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td><input type="submit" class="submit" value="确定" name="dosubmit"/></td>
+                    </tr>
+                </table>
+                <input type="hidden" name="id" value="{$user.id}"/>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(function(){
+	$.formValidator.initConfig({formid:"myform",autotip:true});
+	
+	$("#name").formValidator().inputValidator({min:1,onerror:"用户帐号不能为空"});
+	$("#email").formValidator().inputValidator({min:1,onerror:"请填写邮箱"}).regexValidator({regexp:"email",datatype:"enum",onerror:"邮件格式错误"}).ajaxValidator();
+});
+</script>
+<include file="public:footer"/> 

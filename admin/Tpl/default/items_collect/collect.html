@@ -1,0 +1,91 @@
+<include file="public:header" />
+<div class="pad-10">
+	<table width="100%" cellspacing="0" class="search-form">
+        <tbody>
+            <tr>
+            <td>
+            <div class="explain-col">
+                分类名称
+                <select onchange="get_child_cates(this)">
+                <option value="">--请选择--</option>
+                <volist name="items_cate_list['parent']" id="val">
+                <optgroup label="{$val.name}"></optgroup>
+                <volist name="items_cate_list['sub'][$val['id']]" id="sval">
+                      <option value="{$sval.id}" <if condition="$item_pid eq $sval['id']">selected="selected"</if>>&nbsp;&nbsp;&nbsp;&nbsp;{$sval.name}</option>
+                    </volist>
+                </volist>
+                </select>&nbsp;&nbsp;&nbsp;<font color=red>(注：该采集是采集阿里妈媽里的商品信息@^@)</font>
+        	</div>
+            </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    
+    <if condition="$code eq 'taobao'">
+    <div class="table-list">
+    <form action="" method="post">
+        <table width="100%" cellspacing="0">
+            <thead>
+            <tr>
+                <th>序号</th>
+                <th>分类</th>
+                <th>商品数量</th>
+                <th>被喜欢数</th>
+                <th>采集时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody id="items_cate_list">
+            <notempty name="three_cate_lists">
+            <volist name="three_cate_lists" id="val">
+            <tr>
+                <td align="center">{$i}</td>
+                <td align="center" style="padding-left:10px;">&nbsp;&nbsp;{$val['name']}</td>
+                <td align="center">{$val['item_nums']}</td>
+                <td align="center">{$val['item_likes']}</td>
+                <td align="center" class="red"><if condition="$val['collect_time'] neq '0'">{$val.collect_time|date='Y-m-d H:i:s',###}</if></td>
+                <td align="center">
+                    <a href="javascript:collect({$val['id']}, '{$val['name']}');" class="blue">采集</a>
+                </td>
+              </tr>
+            </volist>
+            </notempty>
+            </tbody>
+        </table>
+    </form>
+    </div>
+<script language="javascript">
+$(function(){   	
+	$('.expandable').click(function(){ 
+		var subcate=".sub_"+$(this).attr('id');
+		if($(subcate+":visible").size()>0){ 
+			$(subcate).hide();
+			$(this).attr('src',ROOT_PATH+'/statics/admin/images/tv-expandable.gif');
+		}else{
+			$(subcate).show();
+			$(this).attr('src',ROOT_PATH+'/statics/admin/images/tv-collapsable.gif');
+		}
+	});
+});
+function collect(cate_id, cate_name) {
+	window.top.art.dialog({id:'collect'}).close();
+	window.top.art.dialog({title:'淘宝数据采集--'+cate_name,id:'collect',iframe:'?m=items_collect&a=taobao_collect&cate_id='+cate_id+'&cate_name='+cate_name,width:'430',height:'160'});
+}
+function get_child_cates(obj)
+{
+	var parent_id = $(obj).val();
+	if( parent_id ){
+		$.get('?m=items_collect&a=get_child_cates&parent_id='+parent_id,function(data){
+				var obj = eval("("+data+")");
+				$('#items_cate_list').html( obj.content );
+	    });
+    }
+}
+</script>
+    <else/>
+    
+	</if>
+</div>
+</body>
+</html>

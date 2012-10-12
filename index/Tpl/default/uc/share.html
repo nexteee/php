@@ -1,0 +1,88 @@
+<include file="public:header"/>
+<load href="__TMPL__public/css/uc.css" />   
+
+<div class="uc clearfix">
+    <include file="head"/>
+   	<if condition="$u['id'] eq $user['id']">    	
+    <div class="clearfix album mt20" style="padding:0px;width:100%;">
+    	<a class="upload left" href="{:U('uc/share_item')}">分享我的宝贝</a>
+        <ul class="item_order left">
+        	<li><i>排序：</i></li>
+            <li><a <if condition="$order eq 'id'">class="current"</if> href="{:U('uc/share',array('order'=>'id'))}">最新</a></li>
+            <li><a <if condition="$order eq 'likes'">class="current"</if> href="{:U('uc/share',array('order'=>'likes'))}">最热</a></li>
+            <li><a <if condition="$order eq 'price'">class="current"</if> href="{:U('uc/share',array('order'=>'price'))}">价格</a></li>
+        </ul>
+    </div>
+    </if>
+    
+{/*--------------------------------------------------------------------------------------------*/}             
+        <div class="item_list infinite_scroll like_list" style="min-height:200px; margin-top:50px;">
+        	<if condition="!empty($items_list)">
+	            <volist name="items_list" id="val">
+				    <div class="item mt15 masonry_brick jq_corner" data-corner="7px" iid="{$val['id']}">
+				        <div class="item_t">
+				            <div class="img tc"> 
+				            	<a target="_blank" href="{:u('item/index',array('id'=>$val['id']))}" hidefocus="true" rel="nofollow">
+				                	<img alt="{$val.title}" url="{:base64_encode($val['img'])}" style="display:inline;" class="encode_url">
+				            	</a>
+				                <span class="price">￥{$val.price}</span> 
+				                <div class="btns">
+				                	<a href="javascript:;" class="img_album_btn" iid="{$val.id}">加入专辑</a>
+				                	<a href="{:u('uc/items_del',array('id'=>$val['id']))}" class="del_btn" onclick="{if(confirm('确定要删除分享吗?')){return true;}return false;}">删除</a>              
+				                </div>
+				         	</div>
+				            <div class="title">
+				                <span>{$val.title}</span>
+				            </div>
+				        </div>
+				        <div class="item_b clearfix">
+				            <div class="items_likes fl"> 
+				            	<a href="javascript:;" class="like_btn" iid="{$val.id}" iurl="{:u('item/index',array('id'=>$val['id']))}"></a>
+				                <em class="red bold" id="like_num_{$val.id}">{$val.likes}</em> 
+				           	</div>
+				            <div class="items_comment fr">
+				            	<a href="{:u('item/index',array('id'=>$val['id']))}#items_comments" target="_blank">评论</a>
+				                <em class="red bold">({$val.comments})</em>
+				            </div>
+				        </div>  
+						{/*------------------------------------------------------------------------------------------------------*/}
+						<present name="val['user']">
+								<div class="user clearfix">
+									<div class="clearfix">
+										<div class="avatar">
+											<img src="{:uimg($val['user']['img'])}" width="20px" height="20px"/> 
+										</div>                
+										<div class="user_info">
+											<a href="{:u('uc/index',array('uid'=>$val['user']['id']))}"><em>@{$val.user.name}</em></a>
+											<span>
+												<if condition="$val.remark_status eq 1">
+													{$val.remark}
+												</if>
+											</span>
+										</div>
+									</div>
+								</div>   
+						</present>         
+						{/*------------------------------------------------------------------------------------------------------*/}        
+				    </div>
+				</volist>
+			<else/>                
+				<div class="home_empty">
+					<span class="des">还没有分享宝贝哦~</span>
+              	</div>            	
+            </if>
+        </div>
+        <if condition="$show_sp eq 1">
+            <div id="more" class="center">
+                <a href="{:u('uc/share',array('sp'=>2,'cid'=>$cid,'p'=>$p))}" hidefocus="true"></a>
+            </div>    	
+        </if> 
+        <if condition="$page neq ''">
+            <div id="page" class="page mt20 clearfix" style="display: none;">
+                <span class="page_num">{$page}</span>
+            </div>
+         </if>  
+{/*--------------------------------------------------------------------------------------------*/}             
+</div>
+
+<include file="public:footer"/> 

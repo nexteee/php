@@ -1,0 +1,52 @@
+<include file="public:header"/>
+<load href="__TMPL__public/css/uc.css" />     
+<load href="__ROOT__/statics/css/formvalidator.css" />
+<script language="javascript" type="text/javascript" src="__ROOT__/statics/js/jquery/plugins/formvalidator.js"></script>
+<script language="javascript" type="text/javascript" src="__ROOT__/statics/js/jquery/plugins/formvalidatorregex.js"></script>
+<div class="middle uc clear-fix mt20">
+	<include file="head"/>
+	<br>
+	<div class="radius7 new_album">
+    	<h3>创建新专辑</h3>
+        <form id="myform" name="myform" action="" method="post">
+            <table class="mt15" cellpadding="10">
+                <tr>
+                    <td style="width:70px;" align="right">专辑名称:</td>
+                    <td><input type="text" class="input_text" name="title" id="title" value="{$album.title}" style="width:300px;" /></td>
+                </tr>
+                <tr>
+                    <td align="right">所属分类:</td>
+                    <td><select name="cid" id="cid"  class="input_text" style="width:200px;height:30px;">
+                            <option value="" selected="selected">请选择...</option>
+                            <volist name="cate" id="val">
+                            	<option value="{$val.id}" <if condition="$album['cid'] eq $val['id']">selected="selected"</if>>{$val.title}</option>
+                            </volist>
+                        </select>
+                    </td>
+                </tr>   
+                <tr>
+                    <td align="right">专辑介绍:</td>
+                    <td><textarea name="remark" style="width:400px;height:100px;">{$album.remark}</textarea></td>
+                </tr>                              
+                <tr>
+                    <td></td>
+                    <td><input type="submit" name="dosubmit" value="完成" class="add"/>
+                        <if condition="$act eq 'edit'">
+                        <input type="hidden" value="{$album.id}" name="id"/>
+                        </if>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        
+    </div>
+</div>
+<script type="text/javascript">
+$(function(){
+	$.formValidator.initConfig({formid:"myform",autotip:true});
+	
+	$("#title").formValidator({onshow:"商品名称不能为空",onfocus:"商品名称不能为空"}).inputValidator({min:10,onerror:"商品名称不能少于10字符"});
+	$("#cid").formValidator({onshow:"请选择分类",onfocus:"请选择分类"}).inputValidator({min:1,onerror:"请选择分类"});
+});
+</script>
+<include file="public:footer"/> 

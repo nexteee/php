@@ -1,0 +1,40 @@
+<div id="uc_head">
+	<div class="top">
+        <table style="width:100%;">
+            <tr>
+                <td style="width:120px;"><img src="{:uimg($u['img'])}" class="avatar"/></td>
+                <td valign="top"><h1>{$u.name}</h1>
+                	<if condition="$u['id'] eq $user['id']">
+	                    <a href="{:u('uc/account_basic')}" class="uc_home_link">个人资料&nbsp;&nbsp;(设置)</a>
+                   	<else/>
+						<div class="add_follow <if condition='$u["is_follow"] eq 1'>yet</if>" fans_id="{$uid}"></div>
+                    </if>
+                </td>
+                <td class="collect_list_wrap"  valign="top">
+                    <div class="right">
+                        <div class="collect_list"> 
+                            <a href="{:uc('uc/follow')}">{$u.follow_num}<br>
+                            <span>关注</span> </a>
+                        </div>
+                        <div class="collect_list"> 
+                            <a href="{:uc('uc/fans')}">{$u.fans_num}<br>
+                            <span>粉丝</span> </a>
+                        </div>
+                        <div class="collect_list" style="border:0px;"> 
+                            <a href="{:uc('uc/like')}"><font color="#FF6FA6"><b>{$u.like_num}</b></font><br>
+                            <span><font color="#FF6FA6">被喜欢</font> </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>    
+    </div>
+
+    <div class="nav clear-fix">
+        <a href="{:uc('uc/index')}" <if condition="ACTION_NAME eq index">class="current"</if>>封面</a>
+        <a href="{:uc('uc/me')}" <if condition="ACTION_NAME eq me">class="current"</if>>动态</a>         
+        <a href="{:uc('uc/album')}" <if condition="(ACTION_NAME eq album) OR (ACTION_NAME eq album_info)">class="current"</if>>专辑</a>
+        <a href="{:uc('uc/like')}" <if condition="ACTION_NAME eq like">class="current"</if>>喜欢</a>
+        <a href="{:uc('uc/share')}" <if condition="(ACTION_NAME eq share) OR (ACTION_NAME eq share_item)">class="current"</if>>分享</a>
+    </div>
+</div>

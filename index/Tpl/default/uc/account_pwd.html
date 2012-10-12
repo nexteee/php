@@ -1,0 +1,60 @@
+<include file="public:header"/>
+<script language="javascript" type="text/javascript" src="__ROOT__/statics/js/jquery/plugins/formvalidator.js"></script>
+<script language="javascript" type="text/javascript" src="__ROOT__/statics/js/jquery/plugins/formvalidatorregex.js"></script>
+<load href="__TMPL__public/css/account.css" /> 
+<link href="__ROOT__/statics/css/formvalidator.css" rel="stylesheet" type="text/css" />
+
+<div class="middle">
+    <div class="uc_account clearfix">
+		<include file="account_left"/>	
+        <div class="right_region account">
+			<present name="err">
+            <div class="err"  style="width:150px;">
+		        <div class="icon_{$err.err}">{$err.msg}</div>                
+            </div>
+            </present> 
+            <form name="myform" id="myform" action="" method="post">
+                <table>
+                    <tr>
+                        <th style="width:100px;">当前密码：</th>
+                        <td><input type="password" value="" id="passwd" name="passwd" class="input_text"/></td>
+                    </tr>
+                    <tr>
+                        <th>新密码：</th>
+                        <td><input type="password" value="" id="new_pwd" name="new_pwd" class="input_text"/></td>
+                    </tr>                
+                    <tr>
+                        <th>确认新密码：</th>
+                        <td><input type="password" value="" id="confirm_pwd" name="confirm_pwd" class="input_text"/></td>
+                    </tr>                
+                    <tr>
+                        <th></th>
+                        <td><input type="submit" class="submit" value="确定" name="dosubmit"/></td>
+                    </tr>
+                </table>            
+            </form>       
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+$(function(){ 
+	$.formValidator.initConfig({formid:"myform",autotip:true,
+		onerror:function(msg,obj){
+			art.dialog({content:msg,lock:true,width:'200',height:'50'}, 
+					   function(){this.close();$(obj).focus();})
+			}
+	});
+		
+	$("#passwd").formValidator({onshow:"填写密码",onfocus:"填写6位以上密码"})
+		.inputValidator({min:6,onerror:"请填写6位以上密码"});
+		
+	$("#new_pwd").formValidator({onshow:"填写密码",onfocus:"填写6位以上密码"})
+		.inputValidator({min:6,onerror:"请填写6位以上密码"});
+
+	$("#confirm_pwd").formValidator({onshow:"确认密码",onfocus:"确认密码",oncorrect:"填写正确"})
+		.inputValidator({min:6,onerror:"请填写6位以上密码"})
+		.compareValidator({desid:"new_pwd",operateor:"=",onerror:"两次输入密码不一致"});	
+});
+</script>
+
+<include file="public:footer"/> 

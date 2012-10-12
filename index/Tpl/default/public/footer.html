@@ -1,0 +1,93 @@
+</div>
+<div class="footer">
+	<div class="box_shadow clearfix">
+        <div class="footer_top">
+            <div class="f_list">
+                <h4><b>发现热门</b></h4>
+                <ul class="l_one">
+                    <li><a target="_blank" href="./?m=group">逛宝贝</a></li>
+                    <li><a target="_blank" href="./?m=cate&a=index&cid=1">找鞋子</a></li>
+                    <li><a target="_blank" href="./?a=index&m=cate&cid=2">选包包</a></li>
+                    <li><a target="_blank" href="./?a=index&m=cate&cid=3">搭配饰</a></li>
+					<li><a target="_blank" href="./?a=index&m=cate&cid=4">爱美妆</a></li>
+					<li><a target="_blank" href="./?a=index&m=cate&cid=5">装家居</a></li>
+                </ul>
+            </div>
+            <div class="f_list">
+                <h4><b>关于我们</b></h4>
+                <ul class="l_one">
+                    <li><a target="_blank" href="{:u('article/index',array('id'=>1))}">关于我们</a></li>
+                    <li><a target="_blank" href="{:u('article/index',array('id'=>3))}">联系我们</a></li>
+                    <li><a target="_blank" href="{:u('article/index',array('id'=>2))}">网站地图</a></li>
+                    <li><a target="_blank" href="{:u('article/index',array('id'=>4))}">隐私政策</a></li>
+                </ul>
+            </div>
+            <div class="f_list">
+                <h4><b>合作伙伴</b></h4>
+                <ul class="l_one">
+                    <li><a target="_blank" href="http://www.pinphp.com" target=_blank>PinPHP</a></li>
+                    <li><a target="_blank" href="http://www.liqu.com" target=_blank>淘宝返利网</a></li>
+                    <li><a target="_blank" href="http://www.yifen.com" target=_blank>一分网</a></li>
+					<li><a target="_blank" href="http://www.doudou.com" target=_blank>豆豆网</a></li>
+					<volist name="flink_list" id="val">
+						<if condition="($val.cate_id eq '2')">
+						<li><a target="_blank" href="{$val.url}" class="f_links fl">{$val.name}</a></li>
+						</if>
+                    </volist>              
+                </ul>
+            </div>
+            <div class="f_list">
+                <h4><b>友情链接</b>  更多>></h4>
+                <ul class="l_two">
+                    <volist name="flink_list" id="val">
+                    	<if condition="($val.cate_id eq '1')">
+						<li><a target="_blank" href="{$val.url}" class="f_links fl">{$val.name}</a></li>
+						</if>
+                    </volist>
+                 </ul>
+            </div>
+            <div class="f_list">
+                <h4><b>关注我们</b></h4>
+                <ul class="l_one">
+					<if condition="($follow_us.weibo_url neq '')"> 
+                    <li><a target="_blank" href="{$follow_us.weibo_url}"><span class="s_sina">&nbsp;&nbsp;</span>新浪微博</a></li>
+					</if>
+                    <if condition="($follow_us.renren_url neq '')"> 
+                    <li><a target="_blank" href="{$follow_us.renren_url}"><span class="renren">&nbsp;&nbsp;</span>公共主页</a></li>
+                    </if>
+					<if condition="($follow_us.qqweibo_url neq '')"> 
+                    <li><a target="_blank" href="{$follow_us.qqweibo_url}"><span class="s_tx">&nbsp;&nbsp;</span>腾讯微博</a></li>
+                    </if>
+					<if condition="($follow_us.qqzone_url neq '')"> 
+                    <li><a target="_blank" href="{$follow_us.qqzone_url}"><span class="s_qzone">&nbsp;&nbsp;</span>QQ空间</a></li>
+                    </if>
+					<if condition="($follow_us.163_url neq '')"> 
+                    <li><a target="_blank" href="{$follow_us.163_url}"><span class="h_wangyi">&nbsp;&nbsp;</span>网易微博</a></li>
+                    </if>
+					<if condition="($follow_us.douban_url neq '')"> 
+                    <li><a target="_blank" href="{$follow_us.douban_url}"><span class="s_dbai">&nbsp;&nbsp;</span>豆瓣</a></li>
+					</if>
+                </ul>
+            </div>
+        </div>
+        
+		<!--友情链接-->
+        </present>
+        <div class="new_footer tc">
+        	<div class="copyright">Copyright &copy;2012 {$site_name}. All Rights Reserved. {$site_icp} {$statistics_code}</div>
+        </div>
+	</div>
+</div>
+
+<div style="display:none;" id="gotopbtn" class="to_top"></div>
+<script type="text/javascript">
+$(function(){
+	$(window).scroll(function(){
+		$(window).scrollTop()>0 ? $("#gotopbtn").css('display','').click(function(){
+			$(window).scrollTop(0);
+		}) : $("#gotopbtn").css('display','none');
+	});
+});
+</script>
+</body>
+</html>

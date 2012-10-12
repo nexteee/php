@@ -1,0 +1,40 @@
+<include file="public:header" />
+<div class="pad_10">
+<form action="{:u('items_collect/edit')}" method="post" name="myform" id="myform" enctype="multipart/form-data">
+<table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+	<tr> 
+      <th>唯一标识 :</th>
+      <td><input type="text" value="{$site_info.alias}" class="input-text"><font color=red>(不可编辑)</font></td>
+    </tr>
+    <tr> 
+      <th width="80">来源名称 :</th>
+      <td><input type="text" name="name" id="name" value="{$site_info.name}" class="input-text"></td>
+    </tr>
+    <tr> 
+      <th>网站域名 :</th>
+      <td><input type="text" name="site_domain" id="site_domain" value="{$site_info.site_domain}" class="input-text" size="50"></td>
+    </tr>
+    <tr> 
+      <th>网站LOGO :</th>
+      <td><img src="./data/author/32_{$site_info.site_logo}" width="16" height="16" style="border:1px #CCC solid; padding:1px;" /> <input name="site_logo" type="file" /></td>
+    </tr>
+    <tr> 
+      <th>采集地址 :</th>
+      <td><input type="text" name="collect_url" id="collect_url" value="{$site_info.collect_url}" class="input-text" size="50"></td>
+    </tr>
+    <!--
+    <tr>
+      <th>采集类型 :</th>
+      <td>
+      	<input type="radio" name="type" class="radio_style" value="0" <if condition="$site_info.type eq 0">checked="checked"</if> > &nbsp;系统采集&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="type" class="radio_style" value="1" <if condition="$site_info.type eq 1">checked="checked"</if>> &nbsp;API采集
+      </td>
+    </tr>
+    -->
+</table>
+<input type="hidden" name="id" value="{$site_info.id}" />
+<input type="submit" name="dosubmit" id="dosubmit" class="dialog" value=" ">
+</form>
+</div>
+</body>
+</html>

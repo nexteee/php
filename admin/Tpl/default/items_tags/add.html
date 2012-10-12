@@ -1,0 +1,27 @@
+<include file="public:header" />
+
+<div class="pad_10">
+<form action="{:u('items_tags/add')}" method="post" name="myform" id="myform" >
+<table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+	<tr> 
+		<th width="100">标签名称 :</th>
+		<td><input type="text" name="name" id="name" class="input-text"></td>
+    </tr>
+	<tr>
+      <th width="100">Title :</th>
+      <td><input type="text" name="seo_title" id="seo_title" class="input-text" size="50"></td>
+    </tr>
+    <tr>
+      <th width="100">Keywords :</th>
+      <td><input type="text" name="seo_keys" id="seo_keys" class="input-text" size="50"></td>
+    </tr>
+    <tr>
+      <th width="100">Description :</th>
+      <td><textarea name="seo_desc" cols="47" rows="4"></textarea></td>
+    </tr>
+</table>
+<input type="submit" name="dosubmit" id="dosubmit" class="dialog" value=" ">
+</form>
+</div>
+</body>
+</html>

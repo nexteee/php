@@ -1,0 +1,20 @@
+<include file="public:header"/>
+<load href="__TMPL__public/css/album_index.css" />   
+<div class="content">
+	<div id="group_nav" class="clearfix">
+	    <a href="{:u('album/index')}" <if condition="$cid eq -1">class="on"</if>>推荐</a>
+		<volist name="album_cate" id="val" offset="0" length="10">
+			<a href="{:u('album/index',array('cid'=>$val['id']))}" <if condition="$val.id eq $cid">class="on"</if>>{$val.title}</a>
+		</volist>
+        <if condition="!is_null($uid)">
+        <a href="{:uc('uc/album')}" target="_blank">我的杂志</a>
+        </if>
+	</div>
+    <div class="album_index infinite_scroll clearfix" style="min-height:200px;">
+        <include file="album_list"/>   
+    </div> 
+    <div id="page" class="page mt20 clearfix" style="display: block;">
+        <span class="page_num">{$page}</span>
+    </div>        
+</div>
+<include file="public:footer"/>

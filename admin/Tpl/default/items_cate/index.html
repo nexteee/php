@@ -1,0 +1,94 @@
+<include file="public:header" />
+<div class="pad-10" >
+    <form id="myform" name="myform" action="{:u('items_cate/delete')}" method="post" onsubmit="return check();">
+    <div class="table-list">
+    <table width="100%" cellspacing="0">
+        <thead>
+            <tr>
+                <th width="4%"><input type="checkbox" value="" id="check_box" onclick="selectall('id[]');"></th>
+              	<th width="200">分类名称</th>
+                <th width="30">图片</th>
+              	<th width="80">分类ID</th> 
+                <th width="80">商品数</th>  
+                <th>SEO Title</th>  
+                <th width="60">排序值</th>
+                <th width="60">首页显示</th>             
+              	<th width="40">状态</th>             
+              	<th width="120">操作</th>
+            </tr>
+        </thead>
+    	<tbody>
+        <volist name="items_cate_list" id='val'>
+        <tr class="{$val.cls}" iid="{$val.id}" pid="{$val.pid}" level="{$val.level}">
+            <td align="center"><input type="checkbox" value="{$val.id}" name="id[]"></td>
+            <td>
+            	<div style="margin-left:{$val['level']*30}px">
+                    <img src="__ROOT__/statics/admin/images/tv-collapsable.gif" class="expandable" id="{$val.id}" pid="{$val.pid}" level="{$val.level}"/>
+                    <span style="color:{$val.color};">{$val.name}</span>
+                </div>            	
+           	</td>
+            <td>
+            	<if condition="$val['img'] neq ''">
+                <img src="__ROOT__/data/items_cate/{$val.img}" height="25px;"/>
+                </if>
+            </td>
+			<td align="center">{$val.id}</td>
+            <td align="center">{$val.item_nums}</td>
+            <td align="left">{$val.seo_title}</td>
+            <td align="center"><input type="text" class="input-text-c input-text" value="{$val.ordid}" size="4" name="listorders[{$val.id}]"  id="listorders[{$val.id}]" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"></td>
+            <td align="center" onclick="status({$val.id},'is_hots')" id="is_hots_{$val.id}"><img src="__ROOT__/statics/images/status_{$val.is_hots}.gif" /></td>
+            <td align="center" onclick="status({$val.id},'status')" id="status_{$val.id}"><img src="__ROOT__/statics/images/status_{$val.status}.gif" /></td>
+            <td align="center"><a class="blue" href="{:u('items_cate/edit',array('id'=>$val['id']))}">编辑</a></td>
+        </tr>
+        </volist>
+    	</tbody>
+    </table>
+
+    <div class="btn">
+    <label for="check_box">全选/取消</label>
+    <input type="submit" class="button" name="dosubmit" value="{$Think.lang.delete}" onclick="return confirm('{$Think.lang.sure_delete}')"/>
+    <input type="submit" class="button" name="dosubmit" onclick="document.myform.action='{:u("items_cate/sort_order")}'" value="{$Think.lang.sort_order}"/>
+    </div>
+
+    </div>
+    </form>
+</div>
+<script type="text/javascript">
+$(function(){
+	$('.expandable').toggle(
+		function(){
+			var id=
+			$('.sub_'+$(this).attr('id')).hide();		
+			$(this).attr('src',ROOT_PATH+'/statics/admin/images/tv-expandable.gif');
+		},
+		function(){
+			$('.sub_'+$(this).attr('id')).show();
+			$(this).attr('src',ROOT_PATH+'/statics/admin/images/tv-collapsable.gif');
+		}
+	);
+});
+
+var lang_items_cate_name = "商品分类";
+function check(){
+	if($("#myform").attr('action') == '{:u("items_cate/delete")}') {
+		var ids='';
+		$("input[name='id[]']:checked").each(function(i, n){
+			ids += $(n).val() + ',';
+		});
+
+		if(ids=='') {
+			window.top.art.dialog({content:lang_please_select+lang_items_cate_name,lock:true,width:'200',height:'50',time:1.5},function(){});
+			return false;
+		}
+	}
+	return true;
+}
+function status(id,type){
+    $.get("{:u('items_cate/status')}", { id: id, type: type }, function(jsondata){
+		var return_data  = eval("("+jsondata+")");
+		$("#"+type+"_"+id+" img").attr('src', '__ROOT__/statics/images/status_'+return_data.data+'.gif')
+	}); 
+}
+</script>
+</body>
+</html>

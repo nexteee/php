@@ -1,0 +1,162 @@
+body {
+	background: url("../images/bg.jpg") repeat-x scroll center top #F5F6F7;
+	color: #666666;
+	font-family: Arial;
+	font-size:12px;
+}
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre, form, fieldset, lengend, button, input, textarea{
+	margin:0;
+	padding:0;
+}
+h1 {
+	font-family:"宋体";
+}
+ul, li, ol {
+	list-style:none;
+}
+a {
+	text-decoration:none;
+	cursor:pointer;
+	color:#666666;
+}
+a:hover {
+	color:#FF6699;
+}
+em {
+	font-style:normal;
+}
+a:hover {
+	text-decoration:none;
+}
+.bg_red{ 
+	background:#fe73ab !important;
+	color:#FFF !important;
+}
+.exp {
+	display:none;
+}
+fieldset, img {
+	border:none;
+}
+button, input, select, textarea, checkbox {
+	font-size:100%;
+}
+table {
+	border-collapse:collapse;
+	border-spacing:0;
+}
+hr {
+	border:none;
+	height:1px;
+}
+.fl {
+	float:left;
+}
+.fr {
+	float:right;
+}
+.cb {
+	clear:both;
+}
+.tc {
+	text-align:center;
+}
+.tl {
+	text-align:left;
+}
+.tr {
+	text-align:right;
+}
+.bold {
+	font-weight:700;
+}
+.none {
+	display:none;
+}
+.break_word {
+	word-wrap: break-word;
+}
+.clearfix:after {
+	content:"\0020";
+	display:block;
+	height:0;
+	clear:both;
+	visibility:hidden;
+}
+.clearfix {
+	clear:both;
+	zoom:1;
+}
+.left {
+	float:left;
+}
+.right {
+	float:right;
+}
+.middle {
+	margin:0px auto;
+}
+.cursor {
+	cursor: pointer;
+}
+.block {
+	display:block;
+}
+.f16 {
+	font-size:16px;
+}
+.f14 {
+	font-size:14px;
+}
+.f12{ 
+	font-size:12px;
+}
+.fnormal{ 
+	font-weight:normal;
+}
+.mt5 {
+	margin-top:5px;
+}
+.mt10 {
+	margin-top:10px;
+}
+.mt15 {
+	margin-top:15px;
+}
+.mt20 {
+	margin-top:20px;
+}
+.pl10{ 
+	padding-left:10px;
+}
+.gray, a.gray {
+	color:#999;
+}
+.red, a.red {
+	color:#FF6699;
+}
+.white, a.white {
+	color:#FFF;
+}
+.pad20{ 
+	padding:20px;
+} 
+.color52 {
+	color: #525252;
+}
+.ft18 {
+	font-size: 18px;
+}
+.radius7 {
+	border-radius:7px;
+	background:#FFF;
+	padding:10px;
+}
+.radius3 {
+	border-radius:3px;
+	background:#FFF;
+	padding:10px;
+}
+.bg_none{ 
+	background:none !important;
+}

@@ -1,0 +1,70 @@
+<include file="public:header" />
+<div class="pad-lr-10">
+  <form name="searchform" action="" method="get" >
+    <table width="100%" cellspacing="0" class="search-form">
+        <tbody>
+            <tr>
+            <td>
+            <div class="explain-col">
+            	关键字 :
+                <input name="keyword" type="text" class="input-text" size="25" value="{$keyword}" />
+                <input type="hidden" name="m" value="items_tags" />
+                <input type="submit" name="search" class="button" value="搜索" />(注：可以点击下面的)
+        	</div>
+            </td>
+            </tr>
+        </tbody>
+    </table>
+    </form>
+	
+
+  <form id="myform" name="myform" action="{:u('items_tags/delete')}" method="post" onsubmit="return check();">
+    <div class="table-list">
+      <table width="100%" cellspacing="0">
+        <thead>
+          <tr>
+          	<th width=50>序号</th>
+            <th width=30><input type="checkbox" value="" id="check_box" onclick="selectall('id[]');"></th>
+            <th width=80>ID值</th>
+            <th width=200><a href="{:u('items_tags/index',array('keyword'=>$keyword,'order'=>'name','sort'=>$sort))}" class="blue <if condition="$order eq 'name'">order_sort_<if condition="$sort eq 'desc'">1<else/>0</if></if>">名称</a></th>
+			<th width=80><a href="{:u('items_tags/index',array('keyword'=>$keyword,'order'=>'item_nums','sort'=>$sort))}" class="blue <if condition="$order eq 'item_nums'">order_sort_<if condition="$sort eq 'desc'">1<else/>0</if></if>">商品数量</a></th>
+            <th align="left">关联分类</th>
+            <th width="60">操作</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <volist name="tags_list" id="val" >
+          <tr>
+            <td align="center">{$val.key}</td>
+            <td align="center"><input type="checkbox" value="{$val.id}" name="id[]"></td>
+            <td align="center"><em style="color:blue;">{$val.id}</em></td>
+            <td align="center">{$val.name}</td>
+            <td align="center"><em style="color:red;">{$val.item_nums}</em></td>
+            <td align="left">
+            <volist name="val.items_cate" id="cate">
+            {$cate.name}&nbsp;&nbsp;
+            </volist>
+            </td>
+            <td align="center"><a href="javascript:edit({$val.id},'{$val.name}')"><em class="blue">{$Think.lang.edit}</em></a></td>
+          </tr>
+          </volist>
+        </tbody>
+      </table>
+	  <div class="btn">
+		<label for="check_box" style="float:left;">{$Think.lang.select_all}/{$Think.lang.cancel}</label>
+		<input type="submit" class="button" name="dosubmit" value="{$Think.lang.delete}" onclick="return confirm('{$Think.lang.sure_delete}')" style="float:left;margin:0 10px 0 10px;"/>		
+		<div id="pages">{$page}</div>
+	  </div>
+	</div>
+</form>
+</div>
+<script type="text/javascript">
+function edit(id, name) {
+	var lang_edit = "{$Think.lang.edit}";
+	window.top.art.dialog({id:'edit'}).close();
+	window.top.art.dialog({title:lang_edit+'--'+name,id:'edit',iframe:'?m=items_tags&a=edit&id='+id,width:'500',height:'300'}, function(){var d = window.top.art.dialog({id:'edit'}).data.iframe;d.document.getElementById('dosubmit').click();return false;}, function(){window.top.art.dialog({id:'edit'}).close()});
+}
+</script>
+</body>
+</html>

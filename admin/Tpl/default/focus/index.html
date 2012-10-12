@@ -1,0 +1,96 @@
+<include file="public:header" />
+<div class="pad-10" >
+    <form name="searchform" action="" method="get" >
+        <table width="100%" cellspacing="0" class="search-form">
+            <tbody>
+                <tr>
+                    <td><div class="explain-col"> 所属分类：
+                            <select name="cate_id">
+                                <option value="">--请选择分类--</option>
+                                <volist name="cate_list['parent']" id="val"> <option value="{$val.id}" 
+                                    <if condition="$cate_id eq $val['id']"> selected="selected" </if>
+                                    >{$val.name}
+                                    </option>
+                                </volist>
+                            </select>
+                            &nbsp;关键字 :
+                            <input name="keyword" type="text" class="input-text" size="25" value="{$keyword}" />
+                            <input type="hidden" name="m" value="focus" />
+                            <input type="submit" name="search" class="button" value="搜索" />
+                        </div></td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+    <form id="myform" name="myform" action="{:u('focus/delete')}" method="post" onsubmit="return check();">
+        <div class="table-list">
+            <table width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th width=50>{$Think.lang.orders}</th>
+                        <th width=25><input type="checkbox" value="" id="check_box" onclick="selectall('id[]');"></th>
+                        <th width=40>ID</th>
+                        <th width=60>焦点图片</th>
+                        <th>资讯标题</th>
+                        <th align="left">链接地址</th>
+                        <th width=80>所属分类</th>
+                        <th width=60>排序值</th>
+                        <th width=40>状态</th>
+                        <th width=40>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <volist name="focus_list" id="val" >
+                        <tr>
+                            <td align="center">{$val.key}</td>
+                            <td align="center"><input type="checkbox" value="{$val.id}" name="id[]"></td>
+                            <td align="center"><a class="blue" href="{:u('focus/edit', array('id'=>$val['id']))}">{$val.id}</a></td>
+                            <td align="center"><notempty name="val.img"> <img src="__ROOT__/data/focus/{$val.img}" style="border: 1px solid #999999;padding:1px;width:60px;height:30px;" /></notempty></td>
+                            <td align="left"><a class="blue" href="{:u('focus/edit', array('id'=>$val['id']))}">{$val.title}&nbsp;&nbsp;</a></td>
+                            <td align="left">{$val.url}</td>
+                            <td align="center"><b>{$val.cate_name.name}</b></td>
+                            <td align="center"><input  type="text" class="input-text-c input-text" value="{$val.ordid}" size="4" name="listorders[{$val.id}]"></td>
+                            <td align="center" onclick="status({$val.id},'status')" id="status_{$val.id}"><img src="./statics/images/status_{$val.status}.gif"/></td>
+                            <td align="center"><a class="blue" href="{:u('focus/edit', array('id'=>$val['id']))}">编辑</a></td>
+                    </volist>
+                </tbody>
+            </table>
+            <div class="btn">
+                <label for="check_box" style="float:left;">{$Think.lang.select_all}/{$Think.lang.cancel}</label>
+                <input type="submit" class="button" name="dosubmit" value="{$Think.lang.delete}" onclick="return confirm('{$Think.lang.sure_delete}')" style="float:left; margin:0 10px 0 10px;"/>
+                <input type="submit" class="button" name="dosubmit" onclick="document.myform.action='{:u("article/sort_order")}'" value="{$Think.lang.sort_order}" style="float:10px;"/>
+                <div id="pages">{$page}</div>
+            </div>
+        </div>
+    </form>
+</div>
+<script language="javascript">
+function edit(id, name) {
+	var lang_edit = "{$Think.lang.edit}";
+	window.top.art.dialog({id:'edit'}).close();
+	window.top.art.dialog({title:lang_edit+'--'+name,id:'edit',iframe:'?m=focus&a=edit&id='+id,width:'550',height:'400'}, function(){var d = window.top.art.dialog({id:'edit'}).data.iframe;d.document.getElementById('dosubmit').click();return false;}, function(){window.top.art.dialog({id:'edit'}).close()});
+}
+
+var lang_cate_name = "{$Think.lang.article_name}";
+function check(){
+	if($("#myform").attr('action') != '{:u("article/sort_order")}') {
+		var ids='';
+		$("input[name='id[]']:checked").each(function(i, n){
+			ids += $(n).val() + ',';
+		});
+
+		if(ids=='') {
+			window.top.art.dialog({content:lang_please_select+lang_cate_name,lock:true,width:'200',height:'50',time:1.5},function(){});
+			return false;
+		}
+	}
+	return true;
+}
+function status(id,type){
+    $.get("{:u('focus/status')}", { id: id, type: type }, function(jsondata){
+		var return_data  = eval("("+jsondata+")");
+		$("#"+type+"_"+id+" img").attr('src', '__ROOT__/statics/images/status_'+return_data.data+'.gif')
+	}); 
+}
+</script>
+</body></html>

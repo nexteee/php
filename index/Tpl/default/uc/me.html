@@ -1,0 +1,41 @@
+<include file="public:header"/>
+<load href="__TMPL__public/css/uc.css" />   
+
+<div class="middle">
+    <div class="uc clear-fix">
+		<include file="head"/>
+        <div class="clearfix mt20">
+			{/*------------------------------------me--------------------------------------------*/}
+            <div class="uc_me radius7">
+            	<if condition="empty($history_list)">
+	                <span class="empty">看来主人刚入住哦，还没有她的动态~</span>
+                </if>
+                <volist name="history_list" id="val">
+                	<div class="history_item clearfix">
+                    	<a class="left" href="{:uc('uc/index')}">
+                        	<img src="{:uimg($val['simg'])}" class="avatar"/>
+                        </a>
+                        <div class="left pl10">
+                        	<div class="clearfix">
+	                            <a href="{:uc('uc/index')}" class="user_name left">{$val.name}</a>
+                                <span class="right history_time">{:date("n月j日   H:i:s",$val["add_time"])}</span>
+                            </div>
+    
+                            <div class="history_content">
+                            	{$val['info']}
+                            </div>
+                        </div>
+                    </div>
+                </volist>
+                <div id="page" class="page mt20 clearfix" style="display:block;">
+                    <span class="page_num">{$page}</span>
+                </div>
+            </div>
+			{/*-----------------------------------user_info---------------------------------------------*/}  
+			<div class="right">
+            	<include file="user_info"/> 
+            </div>			                        
+        </div>
+    </div>
+</div>
+<include file="public:footer"/> 

@@ -1,0 +1,115 @@
+<include file="public:header" />
+<form action="{:u(array('m'=>'shop','a'=>$action))}" method="post" name="myform" id="myform"  enctype="multipart/form-data" style="margin-top:10px;">
+    <div class="pad-10">
+        <div class="col-tab">
+            <ul class="tabBut cu-li">
+                <li id="tab_setting_1" class="on" onclick="SwapTab('setting','on','',2,1);">{$Think.lang.general_info}</li>
+                <li id="tab_setting_2" onclick="SwapTab('setting','on','',2,2);">{$Think.lang.article_seo}</li>
+            </ul>
+            <div id="div_setting_1" class="contentList pad-10">
+                <table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+                    <tr>
+                        <th width="80px">分类名称 :</th>
+                        <td><input type="text" name="title" id="title" class="input-text" size="60" value="{$info.title}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>排&nbsp;序&nbsp;值 :</th>
+                        <td><input type="text" name="ordid" id="ordid" class="input-text" size="8" value="{$info.sort_order|default=0}"></td>
+                    </tr>
+                    <tr>
+                        <th>审核状态 :</th>
+                        <td>
+                        	<input type="radio" name="status" class="radio_style" value="1">
+                            &nbsp;已审核&nbsp;&nbsp;&nbsp;
+                            <input type="radio" name="status" class="radio_style" value="0" checked="checked">
+                            &nbsp;待审核 
+                     	</td>
+                    </tr>
+                </table>
+            </div>
+            <div id="div_setting_2" class="contentList pad-10 hidden">
+                <table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+                    <tr>
+                        <th width="80px">{$Think.lang.seo_title} :</th>
+                        <td><input type="text" name="seo_title" id="seo_title" class="input-text" size="60"></td>
+                    </tr>
+                    <tr>
+                        <th>{$Think.lang.seo_keys} :</th>
+                        <td><input type="text" name="seo_keys" id="seo_keys" class="input-text" size="60"></td>
+                    </tr>
+                    <tr>
+                        <th>{$Think.lang.seo_desc} :</th>
+                        <td><textarea name="seo_desc" id="seo_desc" cols="80" rows="8"></textarea></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="bk15"></div>
+            <if condition="$iframe eq ''">            
+            <div class="btn">
+                <input type="submit" value="{$Think.lang.submit}" name="dosubmit" class="button" id="dosubmit">
+            </div>
+            </if>
+        </div>
+    </div>
+	<input type="hidden" value="{$info.id}" name="id"/>    
+</form>
+<script type="text/javascript">
+function SwapTab(name,cls_show,cls_hide,cnt,cur){
+    for(i=1;i<=cnt;i++){
+		if(i==cur){
+			 $('#div_'+name+'_'+i).show();
+			 $('#tab_'+name+'_'+i).attr('class',cls_show);
+		}else{
+			 $('#div_'+name+'_'+i).hide();
+			 $('#tab_'+name+'_'+i).attr('class',cls_hide);
+		}
+	}
+}
+var act="{$action}";
+var id='{$info.id}';
+$(function(){ 
+
+	$.formValidator.initConfig({formid:"myform",autotip:true,
+		onerror:function(msg,obj){
+			window.top.art.dialog({content:msg,lock:true,width:'200',height:'50'}, 
+				function(){
+					this.close();
+					$(obj).focus();
+				})
+			}
+	});	
+	$("#title").formValidator({onshow:"填写分类名称",onfocus:"填写分类名称"})
+		.inputValidator({min:1,onerror:"请填写分类名称"})
+		.ajaxValidator({type : "get",url : "",data:"m=shop_cate&a=ajax_check_exist&id="+id,
+			async:'true',datatype:'json',
+			success : function(data){
+				return !data.data;
+			},
+			buttons: $("#dosubmit"),
+			onerror : "分类名称已经存在",
+			onwait : "正在检测..."});
+		   
+/*	
+	$.formValidator.initConfig({formID:"myform",theme:"ArrowSolidBox",mode:'AutoTip',
+		onError:function(msg,obj,errorlist){
+			//return;
+		},
+		ajaxPrompt : '有数据正在异步验证，请稍等...'
+	});
+
+	$("#title").formValidator({onshow:"填写分类名称",onfocus:"填写分类名称"})
+		.inputValidator({min:1,onerror:"请填写分类名称"})
+		.ajaxValidator({type : "get",url : "",data:"m=shop_cate&a=ajax_check_exist",
+			async:'true',dataType:'json',
+			success : function(data){
+				console.log(!data.data);
+				return !data.data;
+			},
+			buttons: $("#dosubmit"),
+			onError : "分类名称已经存在",
+			onWait : "正在检测..."});
+*/	/**/
+});
+</script>
+</body></html>

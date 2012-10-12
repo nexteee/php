@@ -1,0 +1,64 @@
+<include file="public:header"/>
+<div class="content">
+{/*-----------------------------------------------------------------------------*/}	
+<if condition="$type eq 'search'">	
+    <div class="search_top box_shadow mt15">
+        <div class="search_box">
+            <form method="get" action="{:u('search/index')}" onsubmit="return check_search(this);">
+                <input type="text" value="{$keywords}" name="keywords" id="keyword" class="fl">
+                <input type="submit" value="搜索" id="search_btn" class="white tc fl cursor">
+            </form>
+        </div>
+    </div>
+</if>    
+{/*-----------------------------------------------------------------------------*/}
+    <div class="search_result">
+        <if condition="$items_list eq ''">
+            <div class="no_result break_word mt15">很抱歉，没有找到与“<span class="keyword">{$keywords}</span>”相关的内容</div>
+            <else/>
+            <div class="result_header clearfix">
+            	<if condition="!empty($keywords)">
+                <div class="fl">找到{$items_total}条与“<span class="keyword">{$keywords}</span>”相关的宝贝</div>
+                </if>
+                <div class="fr">
+                    <a href="{:u('search/index',array('sortby'=>'likes','keywords'=>$keywords))}" <if condition="$sortby eq 'likes'">class="red"</if>>按喜欢排序</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a href="{:u('search/index',array('sortby'=>'time','keywords'=>$keywords))}" <if condition="$sortby eq 'time'">class="red"</if>>按时间排序</a>
+                </div>
+            </div>
+		</if>
+            <div class="item_list infinite_scroll">  
+{/*-----------------------------------------------------------------------------*/}
+<if condition="$type eq 'guang'">	
+                <div class="box_shadow masonry_brick mt15" style="position: absolute; top: 0px; left: 0px;">
+                    <div class="catalog search_catalog clearfix">
+                        <div class="catalog_item">
+                            <h3>社区热荐</h3>
+                            <div class="clearfix">
+                                <a href="{:u('search/index',array('sortby'=>'dlikes'))}" class="<if condition="($sortby eq 'dlikes') OR ($sortby eq '')">bg_red</if> jq_corner" data-corner="10px">24小时最热</a>
+                                <a href="{:u('search/index',array('sortby'=>'sort_order'))}" class="<if condition="$sortby eq 'sort_order'">bg_red</if> jq_corner" data-corner="10px">推荐</a>
+                                <a href="{:u('search/index',array('sortby'=>'time'))}" class="<if condition="$sortby eq 'time'">bg_red</if> jq_corner" data-corner="10px">最新</a>
+                            </div>
+                        </div>    
+                        <div class="catalog_item">
+                            <h3>热门搜索</h3>
+                            <div class="clearfix">
+                            	<volist name="search_keywords" id="val">
+                                <a href="{:u('search/index',array('keywords'=>$val))}" 
+                                	class="<if condition='$request.keywords eq $val'>bg_red</if> jq_corner" 
+                                    data-corner="10px">{$val}</a>
+                                </volist>
+                            </div>
+                        </div>                                    	
+                    </div>
+                </div>
+</if>
+{/*-----------------------------------------------------------------------------*/}
+				<include file="public:goods_list"/>
+            </div>
+            <if condition="$show_sp eq 1"><div id="more" class="center"><a href="{:u('search/index',array('keywords'=>$keywords,'sp'=>2,'p'=>$p))}" hidefocus="true"></a></div></if>
+            <if condition="$page neq ''"><div id="page" class="page mt20" style="display: none;"><div class="page_num">{$page}</div></div></if>
+        </if>
+    </div>
+
+</div>
+
+<include file="public:footer"/>

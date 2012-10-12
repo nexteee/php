@@ -1,0 +1,39 @@
+<volist name="album_list" id="val" key="key">
+    <div class="album_item radius7 mt15" <if condition="$key%2 eq 0">style="float:right;"</if>>
+        <div class="clearfix act" style="text-align:right;">
+        <present name="me">
+        	<if condition="$type neq 'follow'">
+            <a href="{:uc('uc/album_info',array('act'=>'edit','id'=>$val['id']))}" target="_blank">编辑</a>
+            |<a href="{:uc('uc/album_info',array('act'=>'del','id'=>$val['id']))}" onclick="{if(confirm('确定要删除记录吗?')){return true;}return false;}">删除</a>
+            </if>
+        </present>
+        </div>                
+        <a href="{:u('album/details',array('id'=>$val['id'],'uid'=>$val['uid']))}" target="_blank">
+            <volist name="val['items']" id="ival">
+                <li><img src="{$ival}" /></li>
+            </volist>       	
+        </a>
+        <div class="clearfix title">
+        	<div class="clearfix">
+                <h3 class="left">{$val.title}</h3>
+                <div class="right">
+                    <div class="like left">
+                        <i>{$val.like_num}</i>
+                        喜欢
+                    </div>
+                    <div class="comment left">
+                        <i>{$val.comment_num}</i>
+                        评论
+                    </div>
+                </div>            
+            </div>
+            <if condition="$type eq 'follow'">
+			<div class="clearfix" style="line-height:20px;">
+                <a href="{:u('uc/album',array('uid'=>$val['user']['id']))}" target="_blank">
+	                <img src="{:uimg($val['user']['img'])}" class="avatar left"/>@{$val['user']['name']}
+              	</a>
+            </div>
+            </if>
+        </div>
+    </div>
+</volist>

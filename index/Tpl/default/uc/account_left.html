@@ -1,0 +1,9 @@
+<div class="left_region">
+    <h3 class="account">我的账号</h3>
+    <ul>
+ 		<li <if condition="ACTION_NAME eq account_basic">class="on"</if>><a href="{:u('uc/account_basic')}">基本信息</a></li>
+        <li <if condition="ACTION_NAME eq account_sns">class="on"</if>><a href="{:u('uc/account_sns')}">账号绑定</a></li>
+        <li <if condition="ACTION_NAME eq account_pwd">class="on"</if>><a href="{:u('uc/account_pwd')}">修改密码</a></li>
+        <li <if condition="ACTION_NAME eq account_invitation">class="on"</if>><a href="{:u('uc/account_invitation')}">邀请好友</a></li>
+    </ul>
+</div>

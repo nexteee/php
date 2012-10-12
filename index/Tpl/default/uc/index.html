@@ -1,0 +1,47 @@
+<include file="public:header"/>
+<load href="__TMPL__public/css/uc.css" />   
+
+<div class="middle">
+    <div class="uc clear-fix">
+		<include file="head"/>
+		<div class="clearfix mt20">
+{/*------------------------------------album--------------------------------------------*/}
+            <div class="uc_index album radius7">
+                <present name="album_list">
+                	<include file="album_list"/> 
+                <else/>
+                	<if condition="$u['id'] eq $user['id']">
+                        <span>你还没有专辑哦~赶紧创建一个，收集你心爱的宝贝吧~</span>
+                        <a class="upload" href="{:u('uc/album_info')}">创建新专辑</a>
+                    <else/>
+	                    <span>ta还没有专辑哦~</span>
+                    </if>                
+                </present>
+            </div>
+{/*-----------------------------------user_info---------------------------------------------*/}  
+			<div class="right">
+            	<include file="user_info"/> 
+            </div>			                        
+        </div>
+{/*-----------------------------------share---------------------------------------------*/}  
+		<div class="share mt20">
+        	<h3>{$u.name}的分享</h3>
+            <div class="item_list infinite_scroll like_list" style="min-height:200px;">
+                <if condition="!empty($items_list)">
+                    <include file="public:goods_list"/>
+                <else/>                
+                    <div class="home_empty">
+                    <if condition="$u['id'] eq $user['id']">
+                        <span class="des"><a class="upload left" href="{:U('uc/share_item')}">你还没有分享宝贝哦~马上分享@^@</a></span>
+					 <else/>
+                        <span class="des">ta还没有分享宝贝哦~</span>
+                    </if>
+                    </div>            	
+                </if>
+            </div>            
+            <a href="{:uc('uc/share')}" class="more"></a>
+        </div>	
+{/*--------------------------------------------------------------------------------*/}        
+    </div>
+</div>
+<include file="public:footer"/> 

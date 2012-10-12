@@ -1,0 +1,49 @@
+<include file="public:header" />
+<div class="pad-lr-10" >
+	<form id="myform" name="myform" action="{:u('items_collect/delete')}" method="post" onsubmit="return check();">
+    <div class="table-list">
+    <table width="100%" cellspacing="0">
+        <thead>
+        <tr>
+        	<th width="4%"><input type="checkbox" value="" id="check_box" onclick="selectall('id[]');"></th>
+        	<th>来源网站</th>
+        	<th>唯一标识</th>
+        	<th>地址</th>
+            <th>最后采集时间</th>
+        	<th>操作</th>
+        </tr>
+        </thead>
+    	<tbody>
+        <volist name="sites_list" id="val" >
+        <tr>
+        	<td align="center"><input type="checkbox" value="{$val.id}" name="id[]"></td>
+        	<td align="center">{$val.name}</td>
+            <td align="center">{$val.alias}</td>
+            <td align="center">{$val.site_domain}</td>
+            <td align="center">{$val.collect_time}</td>
+            <td align="center">
+            	<a href="{:u('items_collect/collect',array('code'=>$val['alias']))}" class="blue">单个采集</a>
+            	<!--
+            	 | <a class="blue" href="javascript:edit({$val.id},'{$val.name}')">编辑</a>
+            	-->
+         	</td>
+        </tr>
+        </volist>
+    	</tbody>
+    </table>
+    <div class="btn">
+    <label for="check_box">全选/取消</label> 
+    <input type="submit" class="button" name="dosubmit" value="{$Think.lang.delete}" onclick="return confirm('{$Think.lang.sure_delete}')"/>
+    </div>
+    </div>
+    </form>
+</div>
+<script language="javascript">
+function edit(id, name) {
+	var lang_edit = "{$Think.lang.edit}";
+	window.top.art.dialog({id:'edit'}).close();
+	window.top.art.dialog({title:lang_edit+'--'+name,id:'edit',iframe:'?m=items_collect&a=edit&id='+id,width:'500',height:'250'}, function(){var d = window.top.art.dialog({id:'edit'}).data.iframe;d.document.getElementById('dosubmit').click();return false;}, function(){window.top.art.dialog({id:'edit'}).close()});
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+.uc_account {
+	margin:30px 0px 0px 0px;
+	background:#FFF;
+	border-radius:7px;
+}
+.uc_account .left_region, .uc_account .right_region {
+	padding:60px 60px 40px 60px;
+	height:700px;
+	float:left;
+	font-size:14px;
+}
+.uc_account .left_region {
+	background:#fff5f7;
+	border-radius:7px 0px 0px 7px;
+}
+.uc_account .left_region .account {
+	font-size: 16px;
+	line-height: 130%;
+	background:url(../images/uc/settings_icon.png) no-repeat -5px -8px;
+	padding-left: 20px;
+	font-weight: normal;
+	color: #333;
+}
+.uc_account .left_region ul {
+	margin-top:20px;
+}
+.uc_account .left_region li {
+	text-align:right;
+}
+.uc_account .left_region li a {
+	color: #FF5697;
+	padding: 0 10px;
+	line-height: 28px;
+	font-size: 14px;
+}
+.uc_account .left_region li.on a {
+	font-weight: bold;
+}
+.uc_account .right_region table {
+}
+.uc_account .right_region table th{ 
+	font-weight:normal;
+}
+.uc_account .right_region table td {
+	height:40px;
+	line-height:40px;
+	padding-left:20px;
+}
+.account .err{ 
+	margin-left:130px;
+}
+.account p{ 
+	line-height:35px;
+	font-size:12px;
+}
+.account .share a{ 
+	display:block;
+	float:left;
+	height:16px;
+	padding-left:18px;
+	background-image:url(../images/shareicon.png);
+	background-repeat:no-repeat;
+	margin-right:10px;
+	color:#333;
+	font-size:12px;
+	white-space:nowrap;
+}
+.account .share .renren{ 
+	background-position:0px -48px;
+}
+.account .share .kaixin{ 
+	background-position:0px -64px;
+}
+.account .share .sina{ 
+	background-position:0px -80px;
+}
+.account .share .sohu{ 
+	background-position:0px -94px;
+}
+.account .share .qzone{ 
+	background-position:0px -112px;
+}
+.account .share .tqq{ 
+	background-position:0px -127px;
+}
+#sns_list{ 
+	width:600px;
+}
+#sns_list .sns_icon {
+	float: left;
+	width: 50px;
+	height: 50px;
+	overflow: hidden;
+	background-image: url(../images/sns.png);
+}
+#sns_list .sns_icon.sina {
+	background-position: 0 -50px;
+}
+#sns_list .sns_icon.qq {
+	background-position: 0 -400px;
+}
+#sns_list .sns_icon.taobao {
+	background-position: 0 -100px;
+}
+#sns_list li {
+	float: left;
+	width: 300px;
+	height: 50px;
+	padding: 15px 0;
+	overflow: hidden;
+}
+#sns_list .sns_name{ 
+	color: #333;
+	font-size: 12px;
+	font-weight: bold;
+}
+#sns_list .text{ 
+	float:right;
+	width:240px;
+}
+#sns_list .hint{ 
+	margin-top:10px;
+	color:#666;
+}
+#sns_list .hint a{ 
+	color:#5AD;
+}

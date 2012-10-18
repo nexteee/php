@@ -1,0 +1,30 @@
+<include file="public:header" />
+<form id="myform" name="myform" action="{:u('items_collect/taobaoapi')}" method="post">
+  <div class="pad-10">
+          <table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+            <tr>
+              <th width="100">淘宝网帐号 :</th>
+              <td><input type="text" name="usernick" size="30" value="{$taobao.taobao_usernick}"> <span class="gray"> 联盟帐号即您的淘宝用户名</span></td>
+            </tr>
+            <tr>
+              <th >阿里妈妈PID :</th>
+              <td><input type="text" name="pid" size="30" value="{$taobao.taobao_pid}"> <span class="gray">  mm-12345678-00 只填写中间部份即可如：12345678</span></td>
+            </tr>
+            <tr>
+              <th>App Key :</th>
+              <td><input type="text" name="appkey"  size="30" value="{$taobao.taobao_appkey}"> <span class="gray">  通过http://open.taobao.com开发平台获取</span></td>
+            </tr>
+            <tr>
+              <th>App Secret :</th>
+              <td><input type="text" name="appsecret" size="50" value="{$taobao.taobao_appsecret}"> <span class="gray">  通过http://open.taobao.com开发平台获取</span></td>
+            </tr>
+        </table>
+
+      <div class="bk15"></div>
+
+      <div class="btn"><input type="submit" value="{$Think.lang.submit}" onclick="return submitFrom();" name="dosubmit" class="button" id="dosubmit"></div>
+
+    </div>
+  </div>
+</form>
+</body></html>

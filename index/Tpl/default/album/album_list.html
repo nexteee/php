@@ -1,0 +1,15 @@
+<volist name="album_list" id="val" key="key">
+    <div class="album_item radius3 mt15 masonry_brick">
+        <div class="clearfix title">
+            <a class="left" href="{:u()}">{$val.title}</a>
+            <span class="right">
+                {$val.items_num}
+            </span>                
+        </div>
+        <div class="album_list">
+            <volist name="val['items']" id="ival">
+                <li><a href="{:u('album/details',array('id'=>$val['id'],'uid'=>$val['uid']))}" target="_blank"><img src="{$ival}" /></a></li>
+            </volist>       	
+        </div>        
+    </div>
+</volist>

@@ -1,0 +1,30 @@
+<div class="uc_user_info ">
+    <div class="clearfix top"> 
+        <a href="{:uc('uc/index')}" target="_blank" class="left">
+            <img src="{:uimg($u['img'])}" width="48" height="48" alt="{$u.name}" class="avatar">
+        </a>
+        <div class="user_name left"> 
+            <a href="{:uc('uc/index')}" target="_blank">{$u.name}</a>
+			<div class="add_follow <if condition='$u["is_follow"] eq 1'>yet</if>" fans_id="{$u.id}"></div>
+        </div>    
+    </div>
+    <div class="user_collect_info"> 
+    	<a href="{:uc('uc/album')}" target="_blank">专辑<span>{$u.album_num}</span></a> 
+        <a href="{:uc('uc/like')}" target="_blank">喜欢<span>{$u.like_num}</span></a> 
+    	<a href="{:uc('uc/share')}" target="_blank">分享<span>{$u.share_num}</span></a>
+  	</div>
+<if condition="MODULE_NAME eq 'album' and ACTION_NAME eq 'details'">    
+    <p class="album_intro mt15">
+    	{$info.remark}
+    </p>
+{/*----------------------------------------------评论------------------------------------------------------*/}  
+    <div class="comments mt15">
+        <textarea class="comments_box" id="comments_box" def="你也可以顺便说点什么 O(∩_∩)O"></textarea>
+       	<div class="clearfix">
+        	<input type="button" class="submit comments_btn" pid="{$info['album_id']}" id="comments_btn"value="确定"/>
+        </div>
+        <div class="list_wrap"></div>
+    </div>
+{/*----------------------------------------------------------------------------------------------------*/}        
+</if>    
+</div>

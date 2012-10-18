@@ -1,0 +1,130 @@
+<include file="public:header" />
+<script type="text/javascript" src="__ROOT__/includes/kindeditor/kindeditor-min.js"></script>
+<script type="text/javascript">
+	//编辑器
+	KE.show({
+		id : 'info',
+		imageUploadJson : '__ROOT__/includes/kindeditor/php/upload_json.php',
+		fileManagerJson : '__ROOT__/includes/kindeditor/php/file_manager_json.php',
+		allowFileManager : true,
+		afterCreate : function(id) {
+			KE.event.ctrl(document, 13, function() {
+				KE.util.setData(id);
+				document.forms['myform'].submit();
+			});
+			KE.event.ctrl(KE.g[id].iframeDoc, 13, function() {
+				KE.util.setData(id);
+				document.forms['myform'].submit();
+			});
+		}
+	});
+</script>
+
+<form action="{:u(array('m'=>'shop','a'=>$action))}" method="post" name="myform" id="myform"  enctype="multipart/form-data" style="margin-top:10px;">
+    <div class="pad-10">
+        <div class="col-tab">
+            <ul class="tabBut cu-li">
+                <li id="tab_setting_1" class="on" onclick="SwapTab('setting','on','',2,1);">{$Think.lang.general_info}</li>
+                <li id="tab_setting_2" onclick="SwapTab('setting','on','',2,2);">{$Think.lang.article_seo}</li>
+            </ul>
+            <div id="div_setting_1" class="contentList pad-10">
+                <table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+                    <tr>
+                        <th width="80px">商城名称 :</th>
+                        <td><input type="text" name="title" id="title" class="input-text" size="60" value="{$info.title}"></td>
+                    </tr>
+                    <tr>
+                        <th>官方网站URL :</th>
+                        <td><input type="text" name="url" id="url" class="input-text" size="60" value="{$info.url}"></td>
+                    </tr>
+                    <tr>
+                        <th>所属分类 :</th>
+                        <td><select name="cid" id="cid" style="width:200px;">
+                                <option value="0">--请选择分类--</option>
+                                <volist name="cate_list" id="val">
+                                    <option value="{$val.id}"<if condition="$info['cid'] eq $val['id']"> selected="selected"</if>>{$val.title}</option>
+                                </volist>
+                            </select>
+                   	</td>
+                    </tr>
+                    <tr>
+                        <th>商城LOGO :</th>
+                        <td>
+                        	<if condition="$info['img'] neq ''">
+                            <img src="__ROOT__/data/shop/{$info.img}" width="100"/><br/>
+                            </if>
+                        	<input type="file" name="img" id="img" class="input-text"  style="width:200px;" />
+                       	</td>
+                    </tr>
+                    <tr>
+                        <th>介绍:</th>
+                        <td><textarea name="info" id="info" style="width:550px;height:250px;visibility:hidden;">{$info.info}</textarea></td>
+                    </tr>
+                    <tr>
+                        <th>排&nbsp;序&nbsp;值 :</th>
+                        <td><input type="text" name="ordid" id="ordid" class="input-text" size="8" value="{$info.sort_order|default=0}"></td>
+                    </tr>
+                    <tr>
+                        <th>审核状态 :</th>
+                        <td>
+                        	<input type="radio" name="status" class="radio_style" value="1">
+                            &nbsp;已审核&nbsp;&nbsp;&nbsp;
+                            <input type="radio" name="status" class="radio_style" value="0" checked="checked">
+                            &nbsp;待审核 
+                     	</td>
+                    </tr>
+                </table>
+            </div>
+            <div id="div_setting_2" class="contentList pad-10 hidden">
+                <table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+                    <tr>
+                        <th width="80px">{$Think.lang.seo_title} :</th>
+                        <td><input type="text" name="seo_title" id="seo_title" class="input-text" size="60"></td>
+                    </tr>
+                    <tr>
+                        <th>{$Think.lang.seo_keys} :</th>
+                        <td><input type="text" name="seo_keys" id="seo_keys" class="input-text" size="60"></td>
+                    </tr>
+                    <tr>
+                        <th>{$Think.lang.seo_desc} :</th>
+                        <td><textarea name="seo_desc" id="seo_desc" cols="80" rows="8"></textarea></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="bk15"></div>
+            <if condition="$iframe eq ''">            
+            <div class="btn">
+                <input type="submit" value="{$Think.lang.submit}" onclick="return submitFrom();" name="dosubmit" class="button" id="dosubmit">
+            </div>
+            </if>
+        </div>
+    </div>
+	<input type="hidden" value="{$info.id}" name="id"/>    
+</form>
+<script type="text/javascript">
+function SwapTab(name,cls_show,cls_hide,cnt,cur){
+    for(i=1;i<=cnt;i++){
+		if(i==cur){
+			 $('#div_'+name+'_'+i).show();
+			 $('#tab_'+name+'_'+i).attr('class',cls_show);
+		}else{
+			 $('#div_'+name+'_'+i).hide();
+			 $('#tab_'+name+'_'+i).attr('class',cls_hide);
+		}
+	}
+}
+$(function(){ 
+	$.formValidator.initConfig({formid:"myform",autotip:true,
+		onerror:function(msg,obj){
+			window.top.art.dialog({content:msg,lock:true,width:'200',height:'50'}, 
+				function(){
+					this.close();
+					$(obj).focus();
+				})
+			}
+	});	
+	$("#title").formValidator({onshow:"填写名称",onfocus:"填写名称"})
+		.inputValidator({min:1,onerror:"请填写名称"});
+});
+</script>
+</body></html>

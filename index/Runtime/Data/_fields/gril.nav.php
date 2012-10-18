@@ -1,0 +1,2 @@
+<?php
+return array ( 0 => 'id', 1 => 'name', 2 => 'alias', 3 => 'url', 4 => 'sort_order', 5 => 'system', 6 => 'type', 7 => 'in_site', 8 => 'is_show', 9 => 'seo_title', 10 => 'seo_keys', 11 => 'seo_desc', '_autoinc' => true, '_pk' => 'id', ); ?>

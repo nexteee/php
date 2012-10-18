@@ -1,0 +1,2 @@
+<?php
+return array ( 0 => 'id', 1 => 'name', 2 => 'img', 3 => 'pid', 4 => 'item_nums', 5 => 'item_likes', 6 => 'collect_time', 7 => 'ordid', 8 => 'tags', 9 => 'is_hots', 10 => 'status', 11 => 'seo_title', 12 => 'seo_keys', 13 => 'color', 14 => 'seo_desc', '_autoinc' => true, '_pk' => 'id', ); ?>

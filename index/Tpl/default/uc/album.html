@@ -1,0 +1,27 @@
+<include file="public:header"/>
+<load href="__TMPL__public/css/uc.css" />   
+<load href="__TMPL__public/css/uc_album.css" />   
+<div class="middle uc clearfix">
+	<include file="head"/>
+	<div class="clearfix album mt20" style="padding:0px;width:100%;">
+	    <if condition="$u['id'] eq $user['id']">
+    		<a class="upload left" href="{:uc('uc/album_info')}">创建新专辑</a>
+    		<ul class="item_order left">
+	        	<li><i>排序：</i></li>
+	   		  	<li><a href="{:uc('uc/album')}"  <if condition="$type eq 'index'">class="current"</if>>我发表的</a></li>
+            	<li><a href="{:uc('uc/album',array('type'=>'follow'))}" <if condition="$type eq 'follow'">class="current"</if>>关注的人</a></li>
+            </ul>
+    	 </if>
+        
+    </div>  
+    <div class="clearfix"></div>   
+{/*-----------------------------------------------------------------------------------------------*/}       
+	<div class="clearfix mt20" style="min-height:200px; margin-top:0px;">
+		<include file="album_list"/> 
+    </div>   
+    <div class="page mt20 clearfix" style="display:block;">
+        <span class="page_num">{$page}</span>
+    </div>	
+{/*-----------------------------------------------------------------------------------------------*/}       
+</div>
+<include file="public:footer"/> 

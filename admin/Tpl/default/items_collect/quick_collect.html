@@ -1,0 +1,24 @@
+<include file="public:header" />
+<div class="pad_10">
+<form action="{:u('items_collect/taobao_collect?act=quick')}" method="post" name="myform" id="myform">
+	<input type="hidden" name="cate_id" value="{$cate_id}" />
+    <input type="hidden" name="cate_name" value="{$cate_name}" />
+    <table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+        <tr>
+        	<th>搜索关键词 :</th>
+            <td><input type="text" id="keywords" name="keywords" value="{$cate_name}"></td>
+        </tr>
+        <tr>
+        	<th>采集页数 :</th>
+            <td><input type="text" name="pages" value="1"> <span class="gray">每页40个商品</span></td>
+        </tr>
+        <tr>
+        	<th></th>
+            <td><input type="submit" value="开始采集" name="dosubmit" class="button" id="dosubmit"></td>
+        </tr>
+	</table>
+</form>
+
+</div>
+</body>
+</html>

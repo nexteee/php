@@ -1,0 +1,63 @@
+<include file="public:header" />
+
+<form action="{:u('focus/insert')}" method="post" name="myform" id="myform"  enctype="multipart/form-data" style="margin-top:10px;">
+  <div class="pad-10">
+    <div class="col-tab">      
+      <div id="div_setting_1" class="contentList pad-10">
+        <table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+          <tr>
+            <th>所属分类 :</th>
+            <td><select name="cate_id" id="CATE_ID">
+            	<volist name="cate_list['parent']" id="val">
+                  <option value="{$val.id}">{$val.name}</option>                  
+                </volist>
+              </select></td>
+          </tr>	
+		  <tr>
+            <th width="100">焦点名称 :</th>
+            <td><input type="text" name="title" id="title" class="input-text" size="60"></td>
+          </tr>
+          <tr>
+            <th width="100">链接地址 :</th>
+            <td><input type="text" name="url" id="url" class="input-text" size="60"></td>
+          </tr>	  
+          <tr>
+          	<th>焦点图片：</th>
+            <td><input type="file" name="img" id="img" class="input-text" size=21 /></td>
+          </tr>
+		  <tr>
+			<th>排序值 :</th>
+			<td><input type="text" name="ordid" id="ordid" class="input-text" size="8" value="{$article.ordid}" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"></td>
+		  </tr>
+		  <tr>
+				<th>资讯摘要 :</th>
+				<td><textarea name="abst" id="abst" style="width:50%;height:70px;"></textarea></td>
+          </tr>   
+          <tr>
+			<th>审核状态 :</th>
+			<td><input type="radio" name="status" class="radio_style" value="1">&nbsp;已审核&nbsp;&nbsp;&nbsp;
+				<input type="radio" name="status" class="radio_style" value="0" checked="checked">&nbsp;未审核&nbsp;&nbsp;&nbsp;
+			</td>
+          </tr>
+          <tr>
+                  
+        </table>
+      </div>
+      
+      
+      <div class="bk15"></div>
+      <div class="btn"><input type="submit" value="{$Think.lang.submit}" onclick="return submitFrom();" name="dosubmit" class="button" id="dosubmit"></div>
+    </div>
+  </div>
+</form>
+<script type="text/javascript">
+function submitFrom(){
+	if($("cate_id").val()==0)
+	{
+	   alert('请选择文章分类');
+	   return false;
+	}
+
+}
+</script>
+</body></html>

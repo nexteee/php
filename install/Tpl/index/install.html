@@ -1,0 +1,13 @@
+<include file="public:header"/>
+<div class="c_main fr">
+<form action="{:u('index/finish')}" method="POST" id="post_form">
+	<div class="c_main_title">{$Think.lang.step_install_desc}</div>
+	<div class="c_main_body install">
+    	<iframe name="show_process" id="show_process" src="?a=show_process" frameborder="false" scrolling="auto" style="overflow-x:hidden;border:none;" width="100%" height="100%" allowtransparency="true"></iframe>
+    </div>
+    <div class="act">
+        <div class="btn"><input type="submit" name="dosubmit" id="submit_button"  value="{$Think.lang.next}" class="btn_next" /></div>
+    </div>
+</form>
+</div>
+<include file="public:footer"/>

@@ -1,0 +1,107 @@
+<include file="public:header" />
+<style type="text/css">
+.tag_list {
+    border: 1px solid #CCCCCC;
+    float: left;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    width: 100%;
+	padding:0 0 5px 0;
+}
+.tag_list li {
+    border: 1px solid #999999;
+    cursor: pointer;
+    float: left;
+    margin: 5px 0 0 5px;
+    padding: 2px 4px;
+    white-space: nowrap;
+}
+#cate_tags li{
+	background:#09F;
+	color:#FFF;
+}
+</style>
+<div class="pad-10">
+	<h1 class="title-2" style=" padding-top:0px;">当前分类：{$pcate_info.name} &gt; {$cate_info.name}</h1>
+    <form action="{:u('items_tags_cate/add')}" method="post" name="myform" id="myform">
+        <table width="100%" cellpadding="2" cellspacing="0" class="table-other">
+          <tr> 
+            <td align="center" width="40%">分类关联标签(<em class="red">双击删除关联标签</em>) </td>
+            <td align="center" width="10%">操作</td>
+            <td align="center" width="40%">添加标签(<em class="red">双击添加到关联标签</em>) </td>
+          </tr>
+          <tr> 
+            <td rowspan="2" valign="top">
+            	<ul style="height:210px;" class="tag_list" id="cate_tags"></ul>
+            	<div style="line-height:18px; padding:5px 0;">直接添加关联标签，可输入多个标签，以,号分隔</div>
+            	<textarea name="custom_tags" style="width:96%; height:60px;"></textarea>
+            </td>
+            <td rowspan="2" align="center">
+            	<p><input type="button" value="&lt;&lt;&lt;" class="button" id="add_all"></p>
+                <br />
+                <p><input type="button" value="&gt;&gt;&gt;" class="button" id="del_all"></p>
+            </td>
+            <td>
+            	<span>搜索标签：</span>
+                <input type="text" id="tag_keywords" class="textinput">
+                <input type="button" value="搜索" class="button" id="search_tags">
+            </td>
+          </tr>
+          <tr>
+            <td valign="top">
+            	<ul style="height:275px;" class="tag_list" id="items_tags"></ul>
+            </td>
+          </tr>
+        </table>
+<input type="hidden" name="tag_ids" id="tag_ids" value="" />
+<input type="hidden" name="cate_id" id="cate_id" value="{$cate_id}" />
+<input type="submit" name="dosubmit" id="dosubmit" class="dialog" value=" ">
+</form>
+</div>
+<script type="text/javascript">
+$(function($){
+	$("#search_tags").click(function(){
+		var keywords = $("#tag_keywords").val();
+		var cate_id = $("#cate_id").val();
+		$.get("{:u('items_tags_cate/search')}", { cate_id: cate_id, keywords: keywords }, function(jsondata){
+			var return_data  = eval("("+jsondata+")");
+			var tags = return_data.data;
+			$("#items_tags").html(function(return_data){
+				var list_html = "";
+				if (tags) {
+					for(var i=0; i < tags.length; i++){
+						var tag = tags[i];
+						list_html += "<li ondblclick=\"move_tag(this);\" rel=\"0\" tagid=\""+tag.id+"\">"+tag.name+"</li>";
+					}
+				}
+				return list_html
+			});
+		});
+	});
+	
+	$("#del_all").click(function(){
+		$("#cate_tags li").prependTo($("#items_tags")).attr("rel",'0');
+	});
+	$("#add_all").click(function(){
+		$("#items_tags li").prependTo($("#cate_tags")).attr("rel",'1');
+	});
+	$("#myform").submit(function(){
+		$("#tag_ids").val(get_tag_ids());
+	}); 
+});
+function move_tag(obj){
+	if($(obj).attr('rel') == '0'){
+		$(obj).prependTo($("#cate_tags")).attr("rel",'1'); 
+	}else{
+		$(obj).prependTo($("#items_tags")).attr("rel",'0'); 
+	}
+}
+function get_tag_ids(){
+	var tag_ids = "";
+	$("#cate_tags li").each(function(){
+		tag_ids += '|' + $(this).attr('tagid');
+	});
+	return tag_ids;
+}
+</script>
+</body></html>

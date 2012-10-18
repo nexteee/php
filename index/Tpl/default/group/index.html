@@ -1,0 +1,73 @@
+<include file="public:header"/>
+<div class="content">
+	<div id="group_nav" class="clearfix">
+		<a href="{:u('group/index?cid=0')}" <if condition="$cid eq 0">class="on"</if>>推荐</a>
+		<volist name="top_cat_list" id="val" offset="0" length="10">
+			<a href="{:u('group/index',array('cid'=>$val['id']))}" <if condition="$val.id eq $cid">class="on"</if>>{$val.name}</a>
+		</volist>
+	</div>
+
+	<if condition="$cid eq 0">
+		<volist name="group_list" id='val'>
+			<div class="clear">						
+				<div class="mt20 clearfix">
+					<span class="fr">
+						<a target="_blank" class="gray" href="{:u('group/index',array('cid'=>$val['id']))}">更多<samp>&gt;&gt;</samp></a>
+					</span>
+					<h2 class="fl">
+						<span style="font-size:12px;">爱美丽们分享的</span> 
+						<a target="_blank" href="{:u('cate/index',array('cid'=>$val['id']))}">
+							<span class="red f16">{$val.name}</span>
+						</a>
+					</h2>
+					<ul class="guide_links fl">
+						<volist name="val['s']" id='sval'>
+							<li><a target="_blank" href="{:u('cate/index',array('cid'=>$sval['id']))}" class="red">{$sval.name}</a></li>
+						</volist>
+					</ul>
+				</div>
+				<volist name="val['g']" id='gval' key="key">
+					<div class="cate_box <if condition="$key%4 eq 1">alpha<elseif condition="$key%4 eq 0" />omega</if>">
+						<div class="box_shadow mt15 group_box">
+							<div class="groupbg">
+								<h3 class="f16 bold"><a target="_blank" href="{:u('cate/index',array('cid'=>$gval['id']))}">{$gval.name}</a></h3>
+								<a target="_blank" href="{:u('cate/index',array('cid'=>$gval['id']))}" class="mt5 cursor block g_db_bg">
+									<volist name="gval['items']" id='gi' key="gikey">
+										<img <if condition="$gikey%3 eq 0">style="margin-right: 0;"</if> url="{:base64_encode($gi['simg'])}" class="pg_pic_s encode_url">
+									</volist>
+								</a>
+								<div class="group_desc mt10">
+									<span class="follow_red_btn tc cursor fr"><a target="_blank" href="{:u('cate/index',array('cid'=>$gval['id']))}" class="white">去看看</a></span>
+									<span class="share_nums gray">{$gval.item_nums}个分享</span>
+								</div>
+								<div class="mt10"></div>
+							</div>
+						</div>
+					</div>
+				</volist>
+				<div class="clearfix"></div>
+			</div>
+		</volist>
+	<else/>
+		<volist name="group_list['scat']" id='gval' key="gkey">
+			<div class="cate_box <if condition="$gkey%4 eq 1">alpha<elseif condition="$gkey%4 eq 0" />omega</if>" key="{$gkey}">
+				<div class="box_shadow mt15 group_box">
+					<div class="groupbg">
+						<h3 class="f16 bold"><a target="_blank" href="{:u('cate/index',array('cid'=>$gval['id']))}">{$gval.name}</a></h3>
+						<a target="_blank" href="{:u('cate/index',array('cid'=>$gval['id']))}" class="mt5 cursor block g_db_bg">
+							<volist name="gval['items']" id='gi' key="gikey">
+								<img <if condition="$gikey%3 eq 0">style="margin-right: 0;"</if> url="{:base64_encode($gi['simg'])}" class="pg_pic_s encode_url">
+							</volist>
+						</a>
+						<div class="group_desc mt10">
+							<span class="follow_red_btn tc cursor fr"><a target="_blank" href="{:u('cate/index',array('cid'=>$gval['id']))}" class="white">去看看</a></span>
+							<span class="share_nums gray">{$gval.item_nums}个分享</span>
+						</div>
+						<div class="mt10"></div>
+					</div>
+				</div>
+			</div>
+		</volist>
+	</if>
+</div>
+<include file="public:footer"/>

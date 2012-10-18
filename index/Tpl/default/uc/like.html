@@ -1,0 +1,29 @@
+<include file="public:header"/>
+<load href="__TMPL__public/css/uc.css" />   
+<load href="__TMPL__/public/js/uc.js" />
+<div class="uc clearfix">
+    <include file="head"/>    
+{/*--------------------------------------------------------------------------------------------*/}             
+        <div class="item_list infinite_scroll" style="min-height:200px;">
+        	<if condition="!empty($items_list)">
+	            <include file="public:goods_list"/>
+			<else/>                
+				<div class="home_empty">
+					<span class="des">还没有喜欢过宝贝哦~</span>
+              	</div>            	
+            </if>
+        </div>
+        <if condition="$show_sp eq 1">
+            <div id="more" class="center">
+                <a href="{:u('uc/like',array('sp'=>2,'cid'=>$cid,'p'=>$p,'uid'=>$uid))}" hidefocus="true"></a>
+            </div>    	
+        </if> 
+        <if condition="$page neq ''">
+            <div id="page" class="page mt20 clearfix" style="display: none;">
+                <span class="page_num">{$page}</span>
+            </div>
+         </if>  
+{/*--------------------------------------------------------------------------------------------*/}             
+</div>
+
+<include file="public:footer"/> 

@@ -1,0 +1,102 @@
+<include file="public:header"/>
+    <div class="content">
+        <div class="index_top box_shadow mt15 clearfix">
+        	<div class="index_focus fl">
+            	<script type="text/javascript">
+				$(function(){
+					$("#KinSlideshow").KinSlideshow({
+						titleBar:{titleBar_height:30,titleBar_alpha:0.5}
+					});
+				});
+				</script>
+            	<div id="KinSlideshow" style="visibility:hidden;">
+				<volist name="ad_list" id="ad">
+                <a href="{:u('focus/click',array('id'=>$ad['id']))}" target='_blank'><img src="__ROOT__/data/focus/{$ad.img}" alt="{$ad.title}" width="580" height="280"/></a>
+                </volist>
+                </div>
+        	</div>
+        	<div class="index_active fr">
+          		<h3 class="f16">热门<em class="red">活动</em></h3>
+         		<div class="hot_area">
+            		<div class="l_pic fl">
+                    	<a target="_blank" href="<if condition="$top_actives['url'] neq ''">{$top_actives.url}<else/>{:u('article/index',array('id'=>$top_actives['id']))}</if>"><img alt="{$top_actives.title}" src="__ROOT__/data/news/{$top_actives.img}"></a>
+                    </div>
+            		<div class="r_txt fl">
+              			<h3 class="f14"><a target="_blank" href="<if condition="$top_actives['url'] neq ''">{$top_actives.url}<else/>{:u('article/index',array('id'=>$top_actives['id']))}</if>" class="red">{$top_actives.title}</a></h3>
+              			<p class="des">{$top_actives.abst}</p>
+            		</div>
+                    <div class="clearfix"></div>
+                    <div class="g_txt mt15">
+                      <ul>
+                    	<volist name="hot_actives" id="val" key="key">
+                        <li class="clearfix"> <b class="fl">{$key}</b> <a class="fl f14" target="_blank" href="<if condition="$val['url'] neq ''">{$val.url}<else/>{:u('article/index',array('id'=>$val['id']))}</if>">{$val.title}</a></li>
+                        </volist>
+                      </ul>
+                    </div>
+          		</div>
+        	</div>
+      	</div>
+        <if condition="$index_album[index_album] eq '1'">
+    	<volist name="index_group_cates" id='val'>
+    	<div class="mt20 clearfix">
+        	<span class="fr"><a target="_blank" class="gray" href="{:u('cate/index',array('cid'=>$val['id']))}">更多<samp>&gt;&gt;</samp></a></span>
+            <h2 class="fl"><span style="font-size:12px;">爱美丽们分享的</span> <a target="_blank" href="{:u('cate/index',array('cid'=>$val['id']))}"><span class="red f16">{$val.name}</span></a></h2>
+            <ul class="guide_links fl">
+            	<volist name="val['s']" id='sval'>
+            	<li><a target="_blank" href="{:u('cate/index',array('cid'=>$sval['id']))}" class="red">{$sval.name}</a></li>
+                </volist>
+            </ul>
+        </div>
+        <volist name="val['g']" id='gval' key="key">
+        <div class="cate_box <if condition="$key%4 eq 1">alpha<elseif condition="$key%4 eq 0" />omega</if>">
+			<div class="box_shadow mt15 group_box">
+			<div class="groupbg">
+				<h3 class="f16 bold"><a target="_blank" href="{:u('cate/index',array('cid'=>$gval['id']))}">{$gval.name}</a></h3>				
+				<div class="mt5 cursor block g_db_bg">
+				<ul>
+                	<volist name="gval['items']" id='gi' key="gikey">
+					<li <if condition="$gikey%3 eq 0">style="margin-right:0;"</if>><a target="_blank" href="{:u('item/index',array('id'=>$gi['id']))}"><img url="{:base64_encode($gi['simg'])}" class="pg_pic_s encode_url"></a></li>
+                    </volist>
+				</ul>
+				</div>				
+				<div class="group_desc mt10">
+					<span class="follow_red_btn tc cursor fr"><a target="_blank" href="{:u('cate/index',array('cid'=>$gval['id']))}" class="white">去看看</a></span>
+					<span class="share_nums gray">{$gval.item_nums}个宝贝</span>
+				</div>
+				<div class="mt10"></div>
+			</div>
+			</div>
+		</div>
+        </volist>
+        <div class="clearfix"></div>
+        </volist>
+        </if>
+        <!-- 九宫格结束　-->    
+    </div>	
+    	
+    <if condition="$index_pins[index_pins] eq '1'">
+    <!-- start -->
+    <div>
+    	<div class="mt20 clearfix">
+        	<span class="fr"><a target="_blank" class="gray" href="?m=search">更多<samp>&gt;&gt;&nbsp;&nbsp;&nbsp;&nbsp;</samp></a></span>
+            <h2 class="fl"><span style="font-size:12px;"></span> <span class="red f16">每日精彩推荐</span></h2>
+        </div>
+    </div>
+    <div class="item_list infinite_scroll" style="min-height:600px;">
+    	<include file="public:goods_list"/>
+    </div>
+    <if condition="$show_sp eq 1">
+        <div id="more" class="center">
+            <a href="{:u('index/index',array('sp'=>2,'p'=>$p))}" hidefocus="true"></a>
+        </div>    	
+   	</if> 
+    <if condition="$page neq ''">
+    	<div id="page" class="page mt20 clearfix" style="display: none;">
+        	<span class="page_num">{$page}</span>
+        </div>
+    </if>
+    <!-- end -->
+	</if>
+    <div class="mt15"><script language="javascript" src="{:u('advert/index', array('id'=>6))}"></script></div>    
+	<load href="__ROOT__/statics/js/jquery/plugins/jquery.KinSlideshow-1.2.1.min.js" />
+<include file="public:footer"/>

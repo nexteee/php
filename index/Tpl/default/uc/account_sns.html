@@ -1,0 +1,51 @@
+<include file="public:header"/>
+<load href="__TMPL__public/css/account.css" />
+
+<div class="middle">
+    <div class="uc_account clearfix">
+		<include file="account_left"/>	
+        <div class="right_region">
+            <ul id="sns_list">
+            	<li>
+                	<div class="sns_icon sina"></div>
+                    <div class="text">
+                    	<div class="sns_name">新浪微博</div>
+                        <div class="hint">
+                        	<present name="bind_sina">
+                            已绑定<a href="{:u('uc/sns_unbind',array('type'=>'sina'))}" target="_blank" class="error">解除账号</a>
+							<else/>
+                        	<a href="{:u('uc/sina_login',array('type'=>'bind'))}" target="_blank">绑定账号</a>和好友分享你的发现
+                            </present></div>
+                    </div>
+                </li>
+                <li>
+                	<div class="sns_icon qq"></div>
+                    <div class="text">
+                    	<div class="sns_name">腾讯QQ</div>
+                        <div class="hint">
+                        <present name="bind_qq">
+                        	已绑定<a href="{:u('uc/sns_unbind',array('type'=>'qq'))}" target="_blank" class="error">解除账号</a>
+                        <else/>
+                        	<a href="{:u('uc/qq_login',array('type'=>'bind'))}" target="_blank">绑定账号</a>和好友分享你的发现
+                        </present>
+						</div>
+                    </div>
+                </li>
+                <li style="display:none;">
+                	<div class="sns_icon taobao"></div>
+                    <div class="text">
+                    	<div class="sns_name">淘宝网</div>
+                        <div class="hint">
+                        <present name="bind_taobao">
+	                        已绑定<a href="{:u('uc/taobao_login',array('type'=>'taobao'))}" target="_blank" class="error">解除账号</a>
+                        <else/>
+	                        <a href="{:u('uc/taobao_login',array('type'=>'bind'))}" target="_blank">绑定账号</a>和好友分享你的发现
+                        </present>                    
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<include file="public:footer"/> 

@@ -1,0 +1,61 @@
+<volist name="items_list" id="val">
+    <div class="item mt15 masonry_brick jq_corner" data-corner="7px" iid="{$val['id']}">
+        <div class="item_t">
+            <div class="img tc"> 
+            	<a target="_blank" href="{:u('item/index',array('id'=>$val['id']))}" hidefocus="true" rel="nofollow">
+                	<img alt="{$val.title}" url="{:base64_encode($val['img'])}" style="display:inline;" class="encode_url">
+            	</a>
+                <span class="price">￥{$val.price}</span> 
+                <div class="btns">
+                	<a href="javascript:;" class="img_album_btn" iid="{$val.id}">
+                        加入专辑
+                    </a>               
+                </div>
+         	</div>
+            <div class="title">
+                <span>{$val.title}</span>
+            </div>
+        </div>
+        <div class="item_b clearfix">
+            <div class="items_likes fl"> 
+            	<a href="javascript:;" class="like_btn" iid="{$val.id}" iurl="{:u('item/index',array('id'=>$val['id']))}"></a>
+                <em class="red bold" id="like_num_{$val.id}">{$val.likes}</em> 
+           	</div>
+            <div class="items_comment fr">
+            	<a href="{:u('item/index',array('id'=>$val['id']))}#items_comments" target="_blank">评论</a>
+                <em class="red bold">({$val.comments})</em> 
+            </div>
+        </div>  
+		{/*------------------------------------------------------------------------------------------------------*/}
+		<present name="val['user']">
+				<div class="user clearfix">
+					<div class="clearfix">
+						<div class="avatar">
+							<img src="{:uimg($val['user']['img'])}" width="30px" height="30px"/> 
+						</div>                
+						<div class="user_info">
+							<a href="{:u('uc/index',array('uid'=>$val['user']['id']))}">来自#<em>{$val.user.name}</em>#的分享</a>
+							<span>
+								<if condition="$val.remark_status eq 1">
+									{$val.remark}
+								</if>
+							</span>
+						</div>
+					</div>
+				</div>   
+		</present>         
+		{/*------------------------------------------------------------------------------------------------------*/}
+		<present name="val['comments_list']">
+			<div class="comments_list">
+				<volist name="val['comments_list']" id="comment">
+					<div class="clearfix comment_item">
+                    	<div class="fl">
+                        	<img src="{:uimg($comment['img'])}"  width="20px" height="20px" class="uimg fl"/><span class="uname">{$comment.name}</span> :
+                        </div>
+                    	{$comment.info|mb_substr=0,50,'utf-8'}
+					</div>
+				</volist>
+			</div>		
+		</present>		
+    </div>
+</volist>

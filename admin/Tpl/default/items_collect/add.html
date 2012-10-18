@@ -1,0 +1,30 @@
+<include file="public:header" />
+<div class="pad_10">
+<form action="{:u('items_collect/add')}" method="post" name="myform" id="myform" enctype="multipart/form-data">
+<table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+	<tr> 
+      <th width="80">来源名称 :</th>
+      <td><input type="text" name="name" id="name" class="input-text"></td>
+    </tr>
+    <tr> 
+      <th>唯一标识 :</th>
+      <td><input type="text" name="alias" id="alias" class="input-text"></td>
+    </tr>
+    <tr> 
+      <th>网站域名 :</th>
+      <td><input type="text" name="site_domain" id="site_domain" class="input-text" size="50"></td>
+    </tr>
+    <tr> 
+      <th>网站LOGO :</th>
+      <td><input name="site_logo" type="file" /></td>
+    </tr>
+    <tr> 
+      <th>采集地址 :</th>
+      <td><input type="text" name="collect_url" id="collect_url" class="input-text" size="50"></td>
+    </tr>
+</table>
+<input type="submit" name="dosubmit" id="dosubmit" class="dialog" value=" ">
+</form>
+</div>
+</body>
+</html>

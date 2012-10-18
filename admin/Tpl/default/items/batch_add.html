@@ -1,0 +1,125 @@
+<include file="public:header" />
+<form action="{:u('items/batch_add')}" method="post" name="myform" id="myform"  enctype="multipart/form-data" style="margin-top:10px;">
+    <div class="pad-10">
+        <div class="col-tab">
+            <ul class="tabBut cu-li">
+                <li id="tab_setting_1" class="on" onclick="SwapTab('setting','on','',2,1);">基本信息</li>
+            </ul>
+            <div id="div_setting_1" class="contentList pad-10">
+            	<table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+                    <tr>
+			          	<th>所属分类 :</th>
+			          	<td><select onchange="get_child_cates(this,'scid');" name="pcid" id="pcid">
+			          			<option value="">--请选择--</option>
+			          			<volist name="first_cates_list" id="val">
+			          			<option value="{$val.id}" <if condition="$first_id eq $val['id']">selected="selected"</if>>{$val.name}</option>
+			          			</volist>
+			          		</select>&nbsp;-&nbsp;
+			          		<select onchange="get_child_cates(this,'cid');" name="scid" id="scid">
+					          	<option value="">--请选择--</option>
+					           	<volist name="second_cates_list" id="val">
+					          	<option value="{$val.id}" <if condition="$second_id eq $val['id']">selected="selected"</if>>{$val.name}</option>
+					          	</volist>
+			          		</select>&nbsp;-&nbsp;
+			          		<select name="cid" id="cid">
+						          <option value="">--请选择--</option>
+						          <volist name="three_cates_list" id="val">
+						          <option value="{$val.id}" <if condition="$three_id eq $val['id']">selected="selected"</if>>{$val.name}</option>
+						          </volist>
+			          		</select>
+			          	</td>
+			      	</tr>
+			      	<!--
+                    <tr>
+                        <th width="120">商品归类 :</th>
+                        <td><select name="cid" id="cid" onchange="return check_cate(this);">
+                                <option value="0">--请选择分类--</option>
+                                 <volist name="cate_list" id="val">
+                                	<option value="{$val.id}" level="{$val.level}">
+	                                    {:str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',$val['level'])}
+                                    	{:trim($val['name'])}
+                                    </option>
+                              	</volist>
+                            </select></td>
+                    </tr>
+                    -->
+                    <tr>
+                    	<th>网址URL：</th>
+                        <td>
+                			<textarea name="urls" id="urls" cols="100" rows="10"></textarea>        
+                        </td>
+                    </tr>   
+                    <tr>
+                    	<th>采集消息：</th>
+                        <td id="cmd">&nbsp;</td>
+                    </tr>                 
+                </table>
+            </div>
+            <div class="btn">
+                <input type="button" value="开始采集" class="button" onclick="collect();">
+            </div>
+        </div>
+        <br>
+        <table width="100%" cellspacing="0" class="search-form">
+	        <tbody>
+	            <tr>
+	            <td>
+	            <div class="explain-col">
+	            	<font color=red>
+	               	<b>备注说明：</b><br>
+	               	　　1、该采集接口只适用于"淘宝网-taobao.com"、"天猫商城-tmall.com"两个网站<br>
+	               	　　2、URL链接样要求一行一个商品链接，如下所示：<br>
+	               　　	　http://detail.tmall.com/item.htm?id=12903959631<br/>
+					　　　 http://detail.tmall.com/item.htm?id=12903959631<br/>
+					　　　 …………<br/>
+					　　　 http://detail.tmall.com/item.htm?id=12903959631<br/>
+	           		</font>
+	        	</div>
+	            </td>
+	            </tr>
+	        </tbody>
+    	</table>
+    </div>
+</form>
+<script type="text/javascript">
+function collect(){ 
+	$('#cmd').show();
+	
+	if($('#pcid').val()==''){ 
+		//console.log($('#cid').val());	
+		alert('请选择分类');
+		return;
+	}	
+	$.post("{:u('items/batch_add')}",{
+		dosubmit:true,
+		urls:$('#urls').val(),
+		cid:$('#cid').val(),
+		scid:$('#scid').val(),
+		pcid:$('#pcid').val()
+	},
+	function(data){
+		$('#cmd').html("");		
+		if(data.data.code){
+			alert(data.data.msg);
+			return;
+		}
+		var html = "<div><h4>成功更新列表:</h4><div style='color:blue;'>"+data.data.success_update_list+"</div></div><br/>\
+					<div><h4>成功添加列表:</h4><div style='color:green;'>"+data.data.success_insert_list+"</div></div>\
+					<div><h4>失败列表:</h4><div style='color:red;'>"+data.data.fail_list+"</div></div>";
+		$('#cmd').append(html);					  			
+		//console.log(data);
+	},
+	'json');	
+}
+function get_child_cates(obj,to_id) {
+	var parent_id = $(obj).val();
+	if(to_id == 'scid') {
+		$('#cid').html( '<option value=\"\">--请选择--</option>');
+	}
+	$.get('?m=items&a=get_child_cates&g=admin&parent_id='+parent_id,function(data){
+		var obj = eval("("+data+")");
+		$('#'+to_id).html( obj.content );
+	});
+}	
+</script>
+</body></html>

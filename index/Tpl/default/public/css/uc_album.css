@@ -1,0 +1,108 @@
+.new_album {
+	padding-left: 27px;
+}
+.new_album h3 {
+	color: #FF076A;
+	font-size: 16px;
+	letter-spacing: 1px;
+}
+.new_album table td {
+	padding-right:20px;
+}
+.new_album .add {
+	display: block;
+	background-color: #690;
+	padding: 8px 25px;
+	border: 1px solid #4F7700;
+	color: white;
+	font-size: 14px;
+	font-weight: bold;
+	cursor: pointer;
+	border-radius:3px;
+}
+/*---------------------------------------------------------------------------------------------------------*/
+.album_type {
+	float:right;
+	margin-right:200px;
+}
+.album_type li {
+	float:left;
+	border-right:1px solid #ccc;
+}
+.album_type li a {
+	color:#690;
+	padding:7px 10px;
+}
+.album_type .current{ 
+	color:#000;
+}
+/*---------------------------------------------------------------------------------------------------------*/
+.album_item {
+	width:420px;
+	float:left;
+	padding:0px 20px 5px 20px;
+}
+.album_item .img img {
+	margin:2px;
+	width:100px;
+	height:100px;
+}
+.album_item h3 {
+	font: bold 24px/32px Arial;
+	color: #666;
+	margin: 10px 0 0 0;
+	height: 32px;
+}
+.album_item .title {
+	line-height:42px;
+}
+.album_item .title .avatar{ 
+	width:20px;
+	height:20px;
+	border-radius:3px;
+}
+.album_item .like {
+	background:url(../images/uc/myalbum_icon_v3.png) no-repeat -80px 1px;
+	height: 18px;
+	padding-left: 23px;
+}
+.album_item .title .right {
+	line-height:18px;
+	margin-top:14px;
+	font-size:12px;
+	color:#FF80B0;
+}
+.album_item .title .right i {
+	font-weight:bold;
+}
+.album_item .act{ 
+	text-align:right;
+	line-height:35px;
+	height:35px;
+}
+.album_item .act a{ 
+	color: #FE6C9B;
+	font-weight:bold;
+	line-height:35px;
+	margin:0px 5px;
+}
+
+/*---------------------------------------------------------------------------------------------------------*/
+.album_nav {
+	font-size: 14px;
+	color: #BBB;
+	font-weight: normal;
+	line-height:18px;
+}
+.album_nav .album_home{ 
+	float:left;
+	background:url(../images/uc/icon_album_single_v3.png) no-repeat -317px -42px;
+	width:18px;
+	height:18px;
+}
+.album_nav a{ 
+	margin:0px 10px;
+}
+.album_nav .link{ 
+	margin-left:0px;
+}

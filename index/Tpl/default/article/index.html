@@ -1,0 +1,21 @@
+<include file="public:header"/>
+<load href="__ROOT__/statics/js/jquery/plugins/jquery.masonry.min.js" />
+<load href="__ROOT__/statics/js/jquery/plugins/jquery.lazyload.js" />
+<div class="content">
+	<div class="art_left fl">
+    	<div class="art_body box_shadow mt15 clearfix">
+        	<h1>{$art_info.title}</h1>
+            <div class="art_content">
+            	{$art_info.info}
+            </div>
+        </div>
+    </div>
+    <div class="art_right fr">
+    	<div class="art_sidebar box_shadow mt15">
+        	<volist name="art_list" id="val">
+        	<a href="{:u('article/index',array('id'=>$val['id']))}">&gt;{$val.title}</a>
+            </volist>
+        </div>
+    </div>
+</div>
+<include file="public:footer"/>

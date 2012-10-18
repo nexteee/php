@@ -1,0 +1,31 @@
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><meta http-equiv="X-UA-Compatible" content="IE=7" /><link href="__ROOT__/statics/admin/css/style.css" rel="stylesheet" type="text/css"/><link href="__ROOT__/statics/css/dialog.css" rel="stylesheet" type="text/css" /><script language="javascript" type="text/javascript" src="__ROOT__/statics/js/jquery/jquery-1.4.2.min.js"></script><script language="javascript" type="text/javascript" src="__ROOT__/statics/js/jquery/plugins/formvalidator.js"></script><script language="javascript" type="text/javascript" src="__ROOT__/statics/js/jquery/plugins/formvalidatorregex.js"></script><script language="javascript" type="text/javascript" src="__ROOT__/statics/admin/js/admin_common.js"></script><script language="javascript" type="text/javascript" src="__ROOT__/statics/js/dialog.js"></script><script language="javascript" type="text/javascript" src="__ROOT__/statics/js/iColorPicker.js"></script><script language="javascript">var URL = '__URL__';
+var ROOT_PATH = '__ROOT__';
+var APP	 =	 '__APP__';
+var lang_please_select = "<?php echo (L("please_select")); ?>";
+var def=<?php echo ($def); ?>;
+$(function($){
+	$("#ajax_loading").ajaxStart(function(){
+		$(this).show();
+	}).ajaxSuccess(function(){
+		$(this).hide();
+	});
+});
+
+</script><title><?php echo (L("website_manage")); ?></title></head><body><div id="ajax_loading">提交请求中，请稍候...</div><?php if($show_header != false): if(($sub_menu != '') OR ($big_menu != '')): ?><div class="subnav"><div class="content-menu ib-a blue line-x"><?php if(!empty($big_menu)): ?><a class="add fb" href="<?php echo ($big_menu["0"]); ?>"><em><?php echo ($big_menu["1"]); ?></em></a>　<?php endif; ?></div></div><?php endif; endif; ?><form action="<?php echo u('items_cate/'.ACTION_NAME);?>" method="post" name="myform" id="myform"  enctype="multipart/form-data" style="margin-top:10px;"><div class="pad-10"><div class="col-tab"><ul class="tabBut cu-li"><li id="tab_setting_1" class="on" onclick="SwapTab('setting','on','',3,1);">基本信息</li><li id="tab_setting_3" onclick="SwapTab('setting','on','',2,2);">SEO设置</li></ul><div id="div_setting_1" class="contentList pad-10"><table width="100%" cellpadding="2" cellspacing="1" class="table_form"><tr><th></th><td><input type="hidden" name="id" class="input-text" value="<?php echo ($items_cate_info["id"]); ?>"></td></tr><tr><th>上级分类：</th><td><select name="pid" style="width:150px;"><option value="0" <?php if($items_cate_info["pid"] == 0): ?>selected="selected"<?php endif; ?>>--顶级分类--</option><?php if(is_array($items_cate_list)): $i = 0; $__LIST__ = $items_cate_list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$val): $mod = ($i % 2 );++$i;?><option value="<?php echo ($val["id"]); ?>" <?php if($items_cate_info["pid"] == $val['id']): ?>selected="selected"<?php endif; ?>><?php echo str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;',$val['level']); echo ($val["name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?></select></td></tr><tr><th width="100">分类名称 :</th><td><input type="text" name="name" id="name" rel="title_color" 
+                	class="input-text iColorPicker" size="60" value="<?php echo ($items_cate_info["name"]); ?>" 
+                     style="color:<?php echo ($items_cate_info["color"]); ?>;"/><a onclick="iColorShow('name','icp_name')" id="icp_name" href="javascript:void(0)"><img align="absmiddle" style="border: 0pt none; margin: 0pt 0pt 0pt 3px;" src="__ROOT__/statics/admin/images/color.png"></a><input type="hidden" value="<?php echo ($items_cate_info["color"]); ?>" name="color" id="title_color"></td></tr><tr><th>商品图片 :</th><td><?php if($items_cate_info['img'] != ''): ?><img src="__ROOT__/data/items_cate/<?php echo ($items_cate_info["img"]); ?>" /><br/><?php endif; ?><input type="file" name="img" id="img" class="input-text" size=21 /></td></tr><tr><th width="100">排序值 :</th><td><input type="text" name="ordid" id="ordid" class="input-text" size="4" value="<?php echo ($items_cate_info["ordid"]); ?>" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')"></td></tr><tr><th>首页显示 :</th><td><input type="radio" name="is_hots" id="is_hots" class="radio_style" value="1" <?php if($items_cate_info['is_hots'] == '1'): ?>checked="checked"<?php endif; ?> > &nbsp;是&nbsp;&nbsp;&nbsp;
+        		<input type="radio" name="is_hots" id="is_hots" class="radio_style" value="0" <?php if($items_cate_info['is_hots'] == '0'): ?>checked="checked"<?php endif; ?>> &nbsp;否
+             </td></tr><tr><th>审核状态 :</th><td><input type="radio" name="status" id="status" class="radio_style" value="1" <?php if($items_cate_info['status'] == '1'): ?>checked="checked"<?php endif; ?> > &nbsp;是&nbsp;&nbsp;&nbsp;
+        		<input type="radio" name="status" id="status" class="radio_style" value="0" <?php if($items_cate_info['status'] == '0'): ?>checked="checked"<?php endif; ?>> &nbsp;否
+             </td></tr></table></div><div id="div_setting_2" class="contentList pad-10 hidden"><table width="100%" cellpadding="2" cellspacing="1" class="table_form"><tr><th width="100">Title :</th><td><input type="text" name="seo_title" id="seo_title" class="input-text" value="<?php echo ($items_cate_info["seo_title"]); ?>" size="50"></td></tr><tr><th width="100">Keywords :</th><td><input type="text" name="seo_keys" id="seo_keys" class="input-text" value="<?php echo ($items_cate_info["seo_keys"]); ?>" size="50"></td></tr><tr><th width="100">Description :</th><td><textarea name="seo_desc" cols="47" rows="4"><?php echo ($items_cate_info["seo_desc"]); ?></textarea></td></tr></table></div><div class="bk15"></div><div class="btn"><input type="submit" value="<?php echo (L("submit")); ?>"  name="dosubmit" class="button" id="dosubmit"></div></div></div></form><script type="text/javascript">function SwapTab(name,cls_show,cls_hide,cnt,cur){
+    for(i=1;i<=cnt;i++){
+		if(i==cur){
+			 $('#div_'+name+'_'+i).show();
+			 $('#tab_'+name+'_'+i).attr('class',cls_show);
+		}else{
+			 $('#div_'+name+'_'+i).hide();
+			 $('#tab_'+name+'_'+i).attr('class',cls_hide);
+		}
+	}
+}
+</script></body></html>

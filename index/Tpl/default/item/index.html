@@ -1,0 +1,157 @@
+<include file="public:header"/>
+<script type="text/javascript">
+var items_id="{$items_id}";
+</script>
+<load href="__ROOT__/statics/js/jquery/plugins/jquery.masonry.min.js" />
+<load href="__ROOT__/statics/js/jquery/plugins/jquery.lazyload.js" />
+<div class="content">
+	<div class="mt15">
+	<script language="javascript" src="{:u('advert/index', array('id'=>4))}"></script>
+    </div>
+	<div class="item_left fl">
+    	<div class="single_item box_shadow mt15 clearfix">
+        	<dl class="twitter_top">
+                <dt>
+                	<a target="_blank" href="{:u('item/tao',array('id'=>$item['id']))}">
+                		<img src="__ROOT__/data/author/32_{$item.items_site.site_logo}"></a>
+               	</dt>
+                <dd>
+                    <span style="color:#ccc;" class="fr">{$item.add_time|date="m月 d日 H:i",###}</span>
+                    <a target="_blank" href="{:u('item/tao',array('id'=>$item['id']))}" class="red">{$item.items_site.name}</a>
+                    <span class="gray">分享到</span>
+                    <span><a target="_blank" href="{:u('cate/index',array('cid'=>$item['items_cate']['id']))}" class="red f12">#{$item.items_cate.name}#</a></span>
+                </dd>
+                <dd class="quote_goods_title break_word">{$item.title}</dd>
+            </dl>
+            
+        	<div class="item_pic">
+				<a target="_blank" href="{:u('item/tao',array('id'=>$item['id']))}"><img url="{:base64_encode($item['bimg'])}" class="encode_url"></a>
+				<volist name="pics" id="val">
+				<br><a><img src="{$val['url']}"></a>
+				</volist>
+			</div>
+			<div class="item_detail">
+            	<div class="break_word">
+            		<p class="item_title f14 bold"><a target="_blank" href="{:u('item/tao',array('id'=>$item['id']))}">{$item.title}</a></p>
+                    <if condition="$item.price neq '0.00'">
+                    <div class="clearfix" style="padding:12px 0;">
+                        <p class="fl">价格:{$item.price}元</p>
+                    </div>
+                    </if>
+                    <p class="p_heart">
+                    	<a onclick="javascript:;" class="like_it cursor pop_comm" iid="{$item.id}"><b class="red nums" id="like_num_{$item.id}">{$item.likes}</b></a><br />
+                     	<if condition="$item.price neq '0.00'">
+                        <p style="margin-top:20px;"><a target="_blank" href="{:u('item/tao',array('id'=>$item['id']))}" class="red f16">去购买&gt;&gt;</a></p>
+                        </if>
+                    </p>
+                </div>
+            </div>
+            <div class="item_tags clearfix">
+				{$item.info}
+			</div>
+            
+			<div class="item_tags clearfix">
+				<span class="fl">宝贝标签：</span>
+                <volist name="item['items_tags']" id="val">
+				<a href="{:u('cate/tag',array('tag'=>urlencode($val['name'])))}">{$val.name}</a>
+                </volist>
+			</div>
+			
+			<!-- Baidu Button BEGIN -->
+            <div id="bdshare" class="bdshare_t bds_tools get-codes-bdshare mt10" style="float:right;">
+                <a class="bds_qzone"></a>
+                <a class="bds_tsina"></a>
+                <a class="bds_tqq"></a>
+                <a class="bds_renren"></a>
+                <span class="bds_more"></span>
+            </div>
+            <script type="text/javascript" id="bdshare_js" data="type=tools" ></script>
+            <script type="text/javascript" id="bdshell_js"></script>
+            <script type="text/javascript">
+				/**
+				 * 在这里定义bds_config
+				 */
+				var bds_config = {
+					'bdPic':base64_decode("{:base64_encode($item['bimg'])}")//'请参考自定义分享出去的图片'
+				}				
+                document.getElementById("bdshell_js").src = "http://bdimg.share.baidu.com/static/js/shell_v2.js?cdnversion=" + new Date().getHours();
+            </script>
+            <!-- Baidu Button END -->			
+			
+            <span class="fr mt15"><b class="red f14" id="comments_count">{$item.comments}</b>评论&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+            <div class="clearfix"></div>
+			{/*----------------------------------------------评论------------------------------------------------------*/}
+            <div id="items_comments" class="clearfix comments">
+				<div class="arrow"></div>            		
+                <textarea id="comments_box" class="comments_box" maxlength="300" def="对心爱的宝贝说几句话吧~！">
+                </textarea>
+                <div class="clearfix mt10">
+                	<a id="comments_btn" class="comments_btn" pid="{$items_id}">评论</a>
+                </div>
+                <div class="list_wrap"></div>
+            </div>
+			{/*----------------------------------------------------------------------------------------------------*/}          
+        </div>       
+        <h3 class="f16 mt15">猜你喜欢 </h3>
+        <div class="detail_cate_recommend mt15 clearfix">
+        <volist name="siblings_cate_group" id="val" key="key" offset="0" length="3">
+        <div class="box_shadow group_box <if condition="$key%3 eq 1">alpha<elseif condition="$key%3 eq 0"/>omega</if>">
+			<div class="groupbg">
+				<h3 class="f16 bold"><a target="_blank" href="{:u('cate/index',array('cid'=>$val['id']))}">{$val.name}</a></h3>				
+				<div class="mt5 cursor block g_db_bg">
+				<ul>
+                	<volist name="val.items" key="ikey" id='ival'>
+					<li <if condition="$ikey%3 eq 0">style="margin-right: 0;"</if>><a target="_blank" href="{:u('item/index',array('id'=>$ival['id']))}"><img url="{:base64_encode($ival['simg'])}"  class="pg_pic_s encode_url" /></a></li>
+                    </volist>
+                </ul>
+				</div>
+				<div class="group_desc mt10">
+					<span class="follow_red_btn tc cursor fr"><a target="_blank" href="{:u('cate/index',array('cid'=>$val['id']))}" class="white">去看看</a></span>
+					<span class="share_nums gray">{$val.item_nums}个宝贝</span>
+				</div>
+				<div class="mt10"></div>
+			</div>
+		</div>
+        </volist>
+        </div>
+        
+        <h3 class="f16 mt15">也许你还喜欢</h3>
+        <div class="detail_item_list infinite_scroll">
+            <include file="public:goods_list"/>
+        </div>
+        <!--发现更多-->
+        <div class="pager">
+        	<div class="more tc f16">
+            	<samp class="fl"><a href="{:u('cate/index',array('cid'=>$item['items_cate']['id']))}" class="red">去#{$item.items_cate.name}#查看更多分享&gt;&gt;</a></samp>
+            	<span class="hua fl"> </span>
+        	</div>
+        </div>
+    </div>
+    <div class="item_right fr">
+    	<h3 class="f16 mt15">所在杂志</h3>
+    	<div class="box_shadow mt15 group_box">
+			<div class="groupbg">
+				<h3 class="f16 bold"><a target="_blank" href="{:u('cate/index',array('cid'=>$item['items_cate']['id']))}">{$item.items_cate.name}</a></h3>
+				
+				<div class="mt5 cursor block g_db_bg">
+				<ul>
+                	<volist name="this_cate_group" key="key" id='val'>
+					<li <if condition="$key%3 eq 0">style="margin-right:0;"</if>><a target="_blank" href="{:u('item/index',array('id'=>$val['id']))}"><img url="{:base64_encode($val['simg'])}" class="pg_pic_s encode_url"></a></li>
+                    </volist>
+				</ul>
+				</div>
+				
+				<div class="group_desc mt10">
+					<span class="follow_red_btn tc cursor fr"><a target="_blank" href="{:u('cate/index',array('cid'=>$item['items_cate']['id']))}" class="white">去看看</a></span>
+					<span class="share_nums gray">{$item.items_cate.item_nums}个分享</span>
+				</div>
+				<div class="mt10"></div>
+			</div>
+		</div>
+        <div class="clearfix"></div>
+        <div class="mt15" style="width:226px; overflow:hidden;">
+        <script language="javascript" src="{:u('advert/index', array('id'=>5))}"></script>
+        </div>
+    </div>
+</div>
+<include file="public:footer"/>

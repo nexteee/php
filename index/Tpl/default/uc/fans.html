@@ -1,0 +1,52 @@
+<include file="public:header"/>
+<load href="__TMPL__public/css/uc.css" />   
+
+<div class="middle">
+    <div class="uc clear-fix">
+		<include file="head"/>
+        <div class="clearfix mt20">
+{/*------------------------------------me--------------------------------------------*/}
+            <div class="uc_me radius7">
+                <ul class="follow_nav clearfix">
+                    <li <if condition="ACTION_NAME eq 'follow'">class="on"</if>><a href="{:uc('uc/follow')}">我的关注</a></li>
+                    <li <if condition="ACTION_NAME eq 'fans'">class="on"</if>><a href="{:uc('uc/fans')}">我的粉丝</a></li>
+                </ul>            
+            	<if condition="empty($list)">
+	                <span class="empty">看来主人刚入住哦，还没有她的动态~</span>
+                </if>
+                <volist name="list" id="val">
+                	<div class="history_item clearfix">
+                    	<a class="left" href="{:u('uc/index',array('uid'=>$val['uid']))}" target="_blank">
+                        	<img src="{$val.img}" class="avatar"/>
+                        </a>
+                        <div class="left pl10">
+                        	<div class="clearfix">
+	                            <a href="{:u('uc/index',array('uid'=>$val['uid']))}" class="user_name left" target="_blank">
+                                	{$val.name}
+                               	</a>
+	                         	<span class="right">
+                                	<div class="add_follow <if condition='$val["is_follow"] eq 1'>yet</if>" fans_id="{$val.uid}">
+                                    </div>
+                              	</span>
+                            </div>
+                            <div class="history_content">
+                            	粉丝数 {$val['fans_num']} 人
+                            </div>   
+                            <div class="history_content">
+                            	{$val['last_history']}<br>({:date("n月j日   H:i:s",$val["last_time"])})
+                            </div>
+                        </div>
+                    </div>
+                </volist>
+                <div id="page" class="page mt20 clearfix" style="display:block;">
+                    <span class="page_num">{$page}</span>
+                </div>
+            </div>
+{/*-----------------------------------user_info---------------------------------------------*/}  
+			<div class="right">
+            	<include file="user_info"/> 
+            </div>			                        
+        </div>
+    </div>
+</div>
+<include file="public:footer"/> 

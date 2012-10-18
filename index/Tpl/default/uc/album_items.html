@@ -1,0 +1,31 @@
+<include file="public:header"/>
+<load href="__TMPL__public/css/uc.css" />
+<div class="uc clearfix">
+	<div class="album_nav mt20">
+    	<div class="album_home"></div>
+    	<a class="link" href="{:u('index/album')}">专辑</a>/
+        <a href="{:uc('uc/album')}">{$info.album_who}</a>/
+        <a>{$info.album_title}</a>
+    </div>    	
+	{/*--------------------------------------------------------------------------------------------*/}
+    <div class="item_list infinite_scroll like_list" style="min-height:200px;">
+        <div class="masonry_brick mt20" style="position: absolute; top: 0px; left: 0px;">
+			<include file="user_info"/> 
+        </div>
+        <if condition="!empty($items_list)"> 
+        	<include file="public:goods_list"/>
+        <else/>
+            <div class="home_empty"> 
+                <span class="des">还没有宝贝哦~去”{$site_name}“搜寻吧~</span> 
+                    <a href="/shopping" target="_blank" class="new_btn">去{$site_name}看看</a> 
+            </div>
+        </if>
+    </div>
+    <if condition="$show_sp eq 1">
+        <div id="more" class="center"> <a href="{:u('uc/like',array('sp'=>2,'cid'=>$cid,'p'=>$p,'uid'=>$uid))}" hidefocus="true"></a> </div>
+    </if>
+    <if condition="$page neq ''">
+        <div id="page" class="page mt20 clearfix" style="display: none;"> <span class="page_num">{$page}</span> </div>
+    </if>
+{/*--------------------------------------------------------------------------------------------*/} </div>
+<include file="public:footer"/> 

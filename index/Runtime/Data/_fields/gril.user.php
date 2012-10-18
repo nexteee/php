@@ -1,0 +1,2 @@
+<?php
+return array ( 0 => 'id', 1 => 'name', 2 => 'passwd', 3 => 'img', 4 => 'email', 5 => 'sex', 6 => 'brithday', 7 => 'address', 8 => 'province', 9 => 'city', 10 => 'area', 11 => 'blog', 12 => 'info', 13 => 'ip', 14 => 'add_time', 15 => 'status', 16 => 'last_time', 17 => 'last_ip', 18 => 'share_num', 19 => 'like_num', 20 => 'follow_num', 21 => 'fans_num', 22 => 'album_num', '_autoinc' => true, '_pk' => 'id', ); ?>

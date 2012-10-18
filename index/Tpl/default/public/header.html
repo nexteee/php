@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<title>{$seo.seo_title}</title>
+<meta name="keywords" content="{$seo.seo_keys}" />
+<meta name="description" content="{$seo.seo_desc}" />
+<load href="__TMPL__public/css/style.css" />
+<script type="text/javascript">
+var def={$def};
+</script> 
+<load href="__ROOT__/statics/js/jquery/jquery-1.4.2.min.js" />
+<load href="__ROOT__/statics/js/pinphp.js" />
+<load href="__TMPL__public/js/common.js" />
+<!--[if IE]>
+<load href="__TMPL__public/css/ie.css" />
+<![endif]-->
+<!--[if lte IE 8]>
+<load href="__ROOT__/statics/js/jquery/plugins/jquery.corner.js" />
+<script type="text/javascript">
+$(function(){ 
+	$('.jq_corner').corner();
+});
+</script>
+<![endif]-->
+</head>
+<body>
+<div class="header">
+    <div class="mbox clearfix">
+        <span class="logo"> 
+        	<a title="{$site_name}" href="__APP__/"> 
+            	<img alt="{$site_name}" src="__TMPL__/public/images/logo.gif"> 
+         	</a> 
+     	</span>
+        <div class="right">
+            <ol class="homelogin login_list">
+            <present name="user">
+    			<li><a href="{:u('uc/index')}">我的空间</a></li>
+				<li><a href="{:u('uc/account_basic')}">帐号设置</a></li>
+				<li><div id="share_goods" class="left top_share"><div class="button">分享宝贝</div></div></li>
+                <li><a href="{:u('uc/logout')}">退出</a></li>
+			<else />
+	            <li><a class="nav-link-item sep url_cookie red" href="{:u('uc/login')}">登录</a></li>
+                <li><a class="nav-link-item sep url_cookie red" href="{:u('uc/register')}">注册</a></li>
+                <li><a class="m_sina" href="{:u('uc/sina_login')}" target="_blank">微博登录</a></li>
+                <li><a class="m_qq" href="{:u('uc/qq_login')}" target="_blank">QQ登录</a></li>
+            </present>
+            <li><a class="sep nav-link-item" onClick="return SetHome(this,'{$site_domain}');">设为首页</a></li>
+            <li><a class="sep nav-link-item" onClick="return addBookmark('{$site_name}','{$site_domain}');">加入收藏</a></li>   
+            </ol>
+        </div>
+    </div>
+    <div class="main_nav_wrapper">
+        <div class="main_nav">
+            <ul class="nav_left">
+                <li><a href="__APP__/">首 页</a></li>
+                <volist name="nav_list['main']" id="val">
+                <li>
+                    <if condition="$val['in_site'] eq '0'">
+                    <a href="{$val.url}" title="{$val.name}" <if condition="$val['system'] eq 0"> class="f12 fnormal"</if>>
+                    <else/>
+                    <a href="__APP__{$val.url}" title="{$val.name}" <if condition="$val['system'] eq 0"> class="f12 fnormal"</if>>
+                    </if>
+                    {$val.name}</a>
+                </li>
+                </volist>
+            </ul>
+            <div class="nav_search">
+                <form method="post" action="{:u('search/index')}" onsubmit="return check_search(this);">
+                    <input type="text" value="{$default_kw}" autocomplete="off" name="keywords" class="kw_ipt f12 gray">
+                    <input type="submit" value="" id="fm_hd_btm_shbx_bttn" class="do_ipt">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+var default_kw = "{$default_kw}";
+$(function(){
+	$(".kw_ipt").focus(function(){
+		$(this).val($(this).val()==default_kw ? '' : $(this).val());
+	}).blur(function(){
+		$(this).val($(this).val()=='' ? default_kw : $(this).val());
+	});
+});
+</script>
+<div class="wrapper clearfix">

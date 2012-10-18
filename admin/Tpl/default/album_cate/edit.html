@@ -1,0 +1,44 @@
+<include file="public:header" />
+
+<div class="pad-10">
+  <div class="col-tab">
+  	<ul class="tabBut cu-li">
+        <li id="tab_setting_1" class="on" onclick="SwapTab('setting','on','',2,1);">基本信息</li>
+    </ul>
+  	<div id="div_setting_1" class="contentList pad-10">
+        <form action="{:u(MODULE_NAME.'/'.ACTION_NAME)}" method="post" name="myform" id="myform" >
+        <table width="100%" cellpadding="2" cellspacing="1" class="table_form">
+            <tr>
+              <th width="100">名称 :</th>
+              <td><input type="text" name="title" id="title" class="input-text" value="{$info.title}"></td>
+            </tr>
+            <tr>
+              <th width="100">排序值 :</th>
+              <td><input type="text" name="sort_order" id="sort_order" class="input-text" value="{$info.sort_order|default='0'}" size="4" onkeyup="value=value.replace(/[^\d]/g,'')"onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))"></td>
+            </tr>
+            <tr>
+              <th>审核状态 :</th>
+              <td><input type="radio" name="status" value="1" <if condition="$info.status eq '1'"> checked</if> >&nbsp;已审核&nbsp;&nbsp;&nbsp;
+                  <input type="radio" name="status" value="0" <if condition="$info.status eq '0'"> checked</if> >&nbsp;未审核</td>
+            </tr>
+            <tr>
+              <th width="100"></th>
+              <td>
+	              <input type="hidden" name="id" value="{$info.id}" />
+                <input type="submit" class="button" name="dosubmit" value="确定" />
+              </td>
+            </tr>
+        </table>
+        </form>
+        <script type="text/javascript">
+            $(function(){
+                $.formValidator.initConfig({formid:"myform",autotip:true,onerror:function(msg,obj){window.top.art.dialog({content:msg,lock:true,width:'250',height:'50'}, function(){this.close();$(obj).focus();})}});
+                
+                $("#title").formValidator({onshow:"不能为空",onfocus:"不能为空"}).inputValidator({min:1,onerror:"请填写分类名称"});
+            })
+        </script>
+		</div>
+    </div>
+</div>
+</body>
+</html>

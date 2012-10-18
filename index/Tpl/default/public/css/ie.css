@@ -1,0 +1,11 @@
+#share_goods{ 
+	z-index:100;
+}
+#share_goods .dialog{ 
+	top:22px;
+}
+#share_goods .dialog .arrow_wrap {
+	top: -9px;
+	*top:-10px;
+	right: 40px;
+}

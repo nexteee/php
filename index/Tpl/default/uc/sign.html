@@ -1,0 +1,64 @@
+<include file="public:header"/>
+<load href="__TMPL__public/css/uc_v1.css" />   
+<div class="middle">
+    <div class="uc clearfix account">
+    	<div class="login">
+            <p class="login_title">登录成功</p>
+			<present name="err">
+            <div class="err"  style="width:150px;">
+		        <div class="icon_{$err.err}">{$err.msg}</div>                
+            </div>
+            </present>             
+            <form id="myform" name="myform" action="" method="post" onsubmit="return check();">
+                <table class="mt10">
+                	<tr>
+                    	<th style="width:80px;">
+                        <if condition="$user.img eq ''">
+                            <img src="__TMPL__/public/images/avatar-60.png"/>
+                        <else/>
+                            <img src="{$user.img}" width="60px" height="60px"/>                        
+                        </if>
+                        </th>
+                        <td style="font-size:14px;line-height:25px;">
+                        	亲爱的&nbsp;&nbsp;<strong>{$user.name}</strong><br/>
+                            简单设置账号，和达人一起逛{$site_name}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>帐号:</th>
+                        <td><input type="text" value="" id="name" name="name" class="input_text"/>
+	                        <div class="hint error"></div>
+                        </td>                    
+                    </tr>
+                    <tr>
+                        <th>密码:</th>
+                        <td><input type="password" value="" id="passwd" name="passwd" class="input_text"/>
+                        <div class="hint error"></div>
+                        </td>                    
+                    </tr>  
+                    <tr>
+                        <th></th>
+                        <td><input type="submit" class="submit" value="下一步" name="dosubmit"/></td>                    
+                    </tr>                
+                </table>            
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+function check(){ 
+	var name=$.trim($('#name').val());
+	var passwd=$.trim($('#passwd').val());
+	if(name.length==0){ 			
+		$('#name').next('.hint').html('昵称必须填写!');
+		return false;
+	}	
+	if(passwd.length<6){ 			
+		$('#passwd').next('.hint').html('昵称必须填写，不能少于6个字符!');
+		return false;
+	}	
+	return true;
+}
+</script>
+
+<include file="public:footer"/> 

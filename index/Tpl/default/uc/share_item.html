@@ -1,0 +1,116 @@
+<include file="public:header"/>
+<load href="__TMPL__public/css/uc.css" />
+<load href="__ROOT__/statics/css/formvalidator.css" />
+<script language="javascript" type="text/javascript" src="__ROOT__/statics/js/jquery/plugins/formvalidator.js"></script>
+<script language="javascript" type="text/javascript" src="__ROOT__/statics/js/jquery/plugins/formvalidatorregex.js"></script>
+     
+<script type="text/javascript">	
+	$(function(){
+		$("#add_pic").click(function(){
+			$("#pic_tr").clone().prependTo($("#pic_tr").parent());
+		});		
+	})
+</script>
+
+<div class="middle uc clear-fix mt20">
+	<include file="head"/>
+	<br>
+	<div class="radius7 new_album">
+    		<h3>分享我的宝贝</h3>
+        	<form name="myform" id="myform" action="" method="post" enctype="multipart/form-data">
+            <table class="mt15" cellpadding="10">
+                <tr>
+                    <th style="width:70px;" align="right">商品名称:</th>
+                    <td>
+                        <input type="text" name="title" id="title" class="input_text" style="width:300px;">
+                    </td>
+                </tr>
+                <tr>
+                    <th align="right">所属分类:</th>
+                    <td>
+                        <select onchange="get_child_cates(this,'sid');" id="pid" name="pid" class="input_text" style="width:90px;height:30px;">
+							<option value="">--请选择--</option>
+							<volist name="item_cate_first_list" id="val" class="input_text" style="width:90px;height:30px;">
+							<option value="{$val.id}">{$val.name}</option>
+							</volist>
+                        </select>
+                        &nbsp;-&nbsp;
+                        <select onchange="get_child_cates(this,'cid');" id="sid" name="sid"  class="input_text" style="width:90px;height:30px;">
+							<option value="">--请选择--</option>
+                        </select>
+                        &nbsp;-&nbsp;
+                        <select id="cid" name="cid"  class="input_text" style="width:95px;height:30px;">
+							<option value="">--请选择--</option>
+                        </select>
+                    </td>
+                </tr>
+				<tr>
+                  <th align="right" valign="top">封面图片 :</th>
+                  <td>
+                      <input type="file" name="img" id="img" class="input_text" style="width:300px;" />&nbsp;&nbsp;<font color=red>(或输入详细的图片链接地址)</font>
+                      <br>
+                      <input type="text" name="img_url" id="img_url" class="input_text"  style="width:300px;">
+                  </td>
+                </tr>
+				<tr>
+                    <th align="right">链接地址 :</th>
+                    <td><input type="text" name="url" id="url" class="input_text"  style="width:300px;"></td>
+                </tr>
+                <tr>
+                  <th align="right">标签 :</th>
+                  <td><input type="text" name="tags" id="tags" class="input_text"  style="width:300px;">&nbsp;&nbsp;<input class="button" type="button" value="自动获取" onclick="get_tags()"/></td>
+                </tr>
+                <tr>
+                    <th align="right">价格 :</th>
+                    <td><input type="text" name="price" id="price" class="input_text" style="width:80px;" value="0" onkeyup="if(isNaN(value))execCommand('undo')" onafterpaste="if(isNaN(value))execCommand('undo')">　元</td>
+                </tr>
+                <tr>
+                    <th align="right">摘要 :</th>
+                    <td><textarea id="info" name="info" style="width:300px;height:70px;"></textarea></td>
+                </tr>                             
+              </table>
+			<table class="mt15" cellpadding="5">
+				<tr id="pic_tr">
+					<th width="100">商品配图 :</th>
+					<td><input type="file" name="pic[]" class="input-text" size="10" /></td>
+				</tr>
+				<tr>
+					<th width="100"></th>
+					<td><input type="button" value="增加图片" id="add_pic" class="button"><font color=red>&nbsp;&nbsp;(注：该配图仅会在详情中出现)</font></td>
+				</tr>
+				
+			</table>
+			<table class="mt15" cellpadding="10">
+				<tr>
+                    <td width=80></td>
+                    <td>
+                        <input type="submit" name="dosubmit" value="分享" class="add" onclick="" />
+                    </td>
+                </tr>
+			</table>
+        </form>
+        
+    </div>
+</div>
+<script type="text/javascript">
+$(function(){
+	$.formValidator.initConfig({formid:"myform",autotip:true});
+	
+	$("#title").formValidator({onshow:"商品名称不能为空",onfocus:"商品名称不能为空"}).inputValidator({min:10,onerror:"商品名称不能少于10字符"});
+	$("#pid").formValidator({onshow:"请选择商品分类",onfocus:"请选择商品分类"}).inputValidator({min:1,onerror:"请选择商品分类"});
+	$("#img").formValidator({onshow:"请上传封面图片",onfocus:"请上传封面图片"}).compareValidator({desid:"img_url",operateor:"!=",datatype:"string",onerror:"请选择上传图片或者填写图片链接地址！"});  
+});
+
+</script>
+<script>
+function get_tags()
+{
+    var title = $("#title").val();
+	var url = "{:u('uc/get_tags')}";
+	$.get(url,{ title: title },function(data){
+	    var return_data  = eval("("+data+")");
+		$("#tags").val(return_data.data);								
+	});
+}
+</script>
+<include file="public:footer"/> 

@@ -1,0 +1,15 @@
+@charset "utf-8";
+.album_items_add_dialog .thumb img{ 
+	padding:3px;
+	background:#FFF;
+	width:100px;
+	overflow:hidden;
+	border: 1px solid #8ABD0F;	
+}
+.album_items_add_dialog .submit{ 
+	background:url(../images/uc/album_submit_v3.png) no-repeat;
+	width:57px;
+	height:23px;
+	float:right;
+	color:#fff;
+}
